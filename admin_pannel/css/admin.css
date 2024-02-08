@@ -1,0 +1,161 @@
+ body {
+      padding-top: 20px;
+    }
+
+    .custom-navbar {
+      background-color: #343a40;
+      /* Your navbar's background color */
+      color: #fff;
+      /* Your navbar's text color */
+      position: fixed;
+      /* Fixed position at the top */
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      /* Ensure the navbar is above other content */
+      transition: left 0.3s;
+      /* Add transition for smooth animation */
+    }
+    .custom-navbar.active {
+      left: 250px;
+      /* Adjust position when sidebar is open */
+    }
+
+
+    .card-header {
+      font-weight: bold;
+    }
+
+    .revenue-chart {
+      height: 300px;
+    }
+
+    /* Add cool CSS styles and animations */
+    .card-body {
+      animation: fadeInUp 0.6s ease;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .navbar {
+      background-color: #333;
+    }
+
+    .navbar-brand {
+      color: #fff;
+      font-size: 24px;
+    }
+
+    .navbar-nav .nav-link {
+      color: #fff;
+      font-size: 18px;
+    }
+
+    /* Add styles for the footer */
+    footer {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    /* Set a maximum width for the tables */
+    .table-responsive {
+      max-width: 100%;
+      overflow-x: auto;
+    }
+
+
+    /* Custom styling for the sidebar */
+    /* Custom styling for the sidebar */
+    #sidebar {
+      height: 100vh;
+      width: 250px;
+      position: fixed;
+      top: 0;
+      left: -250px;
+      transition: left 0.3s;
+      background-color: #343a40;
+      /* Your theme's background color */
+      color: #fff;
+      /* Your theme's text color */
+      z-index: 1;
+      /* Ensure the sidebar covers the content */
+    }
+    #sidebar.active {
+      left: 0;
+    }
+    #sidebar .sidebar-header {
+      padding: 20px;
+      background-color: #2c3e50;
+      /* Your theme's header color */
+    }
+    #sidebar ul.components {
+      padding: 20px;
+    }
+    #sidebar ul li {
+      padding: 10px;
+      border-bottom: 1px solid #2c3e50;
+      /* Your theme's border color */
+    }
+    #sidebar ul li:last-child {
+      border-bottom: none;
+    }
+    #sidebar ul li a {
+      color: #fff;
+      /* Your theme's link color */
+    }
+    #sidebar ul li a:hover {
+      color: #f39c12;
+      /* Your theme's hover link color */
+    }
+    #sidebar .btn-toggle {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #343a40;
+      /* Your theme's background color */
+      border: none;
+      color: #fff;
+      /* Your theme's text color */
+      z-index: 2;
+      /* Ensure the button is above the sidebar */
+    }
+    #content {
+      margin-left: 0;
+      /* Initial position, content is not shifted */
+      padding: 20px;
+      transition: margin-left 0.3s;
+    }
+    #content.active {
+      margin-left: 250px;
+      /* Shift content when sidebar is open */
+    }
+    .scrollable-sidebar-content {
+    max-height: calc(80vh - 50px); /* Adjust as needed */
+    overflow-y: auto;
+}
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top: 4px solid #000;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

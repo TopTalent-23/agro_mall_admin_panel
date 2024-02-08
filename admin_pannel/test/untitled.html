@@ -1,0 +1,366 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Orders Page</title>
+  <!-- Include Bootstrap CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/flatpickr.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/flatpickr.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container mt-4">
+    <!-- Date filters -->
+    <div class="btn-group">
+      <button type="button" class="btn btn-outline-primary date-filter-btn" data-filter="today">Today</button>
+      <button type="button" class="btn btn-outline-primary date-filter-btn" data-filter="yesterday">Yesterday</button>
+      <button type="button" class="btn btn-outline-primary date-filter-btn" data-filter="last_week">Last Week</button>
+      <button type="button" class="btn btn-outline-primary date-filter-btn" data-filter="last_month">Last Month</button>
+    </div>
+
+    <div class="input-group mb-3 mt-3">
+      Date Range:
+      <input type="text" class="form-control flatpickr" id="date-range" placeholder="Select Date Range (YYYY-MM-DD to YYYY-MM-DD)">
+      <button class="btn btn-outline-primary" id="apply-custom-filter">Apply</button>
+    </div>
+
+    <div class="input-group mb-3">
+      Search Order:
+      <input type="text" class="form-control" id="search-order" placeholder="Enter order ID or product name">
+      <button class="btn btn-outline-primary" id="search-order-btn">Search</button>
+    </div>
+
+    <!-- Hidden input to keep track of the selected filter -->
+    <input type="hidden" id="date-filter" value="today">
+
+    <!-- Orders table -->
+    <div id="orders-table">
+      <table class="table table-striped">
+      
+        <tbody id="orders-table-body">
+          <!-- Table content will be dynamically updated here -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Loading spinner -->
+    <div id="spinner" style="display: none;">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Include jQuery and Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+ <script>
+  // Flatpickr initialization
+  flatpickr(".flatpickr", {
+    dateFormat: "Y-m-d",
+    mode: "range",
+    static: true,
+    showMonths: 2,
+    defaultDate: [new Date().toISOString().split('T')[0]] // Set default to today's date
+  });
+
+  $(document).ready(function() {
+    function fetchOrders(filter, page, startDate, endDate, searchQuery) {
+      $("#spinner").show();
+      $.ajax({
+        url: "get_orders.php",
+        method: "POST",
+        data: { filter: filter, page: page, start_date: startDate, end_date: endDate, search: searchQuery },
+        dataType: "html",
+        success: function(response) {
+          $("#spinner").hide();
+          $("#orders-table-body").html(response); // Update the table body with search results
+        },
+        error: function(xhr, status, error) {
+          console.error(error);
+        }
+      });
+    }
+
+    function applyDateFilter() {
+      var filter = $("#date-filter").val();
+      var startDate = null;
+      var endDate = null;
+
+      if (filter === "custom") {
+        const dateRangeInput = document.getElementById("date-range").value;
+        const [start, end] = dateRangeInput.split(" to ");
+
+        // If start and end dates are the same, treat it as a single date
+        if (start === end) {
+          startDate = start.trim();
+          endDate = null; // Set end date to null for single date filter
+        } else {
+          startDate = start.trim();
+          endDate = end.trim();
+        }
+      }
+
+      fetchOrders(filter, 1, startDate, endDate, $("#search-order").val());
+    }
+
+    // Initial loading with default filter (today's orders)
+    applyDateFilter();
+
+    // Apply event handlers for date filter buttons
+    $(".date-filter-btn").click(function() {
+      $("#date-filter").val($(this).data("filter"));
+      applyDateFilter();
+    });
+
+    // Apply event handler for custom date filter
+    $("#apply-custom-filter").click(function() {
+      $("#date-filter").val("custom");
+      applyDateFilter();
+    });
+
+    // Apply event handler for search button
+    $("#search-order-btn").click(function() {
+      applyDateFilter();
+    });
+
+    // Implement pagination handling
+    $(document).on("click", ".pagination-link", function() {
+      var page = $(this).data("page");
+      var filter = $("#date-filter").val();
+      var startDate = null;
+      var endDate = null;
+      
+      if (filter === "custom") {
+        const dateRangeInput = document.getElementById("date-range").value;
+        const [start, end] = dateRangeInput.split(" to ");
+
+        if (start === end) {
+          startDate = start.trim();
+          endDate = null;
+        } else {
+          startDate = start.trim();
+          endDate = end.trim();
+        }
+      }
+      
+      fetchOrders(filter, page, startDate, endDate, $("#search-order").val());
+    });
+  });
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+<?php
+// get_orders.php
+
+// Replace with your actual database connection code
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "aahire_agro_mall";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Get the filter from the AJAX request
+$filter = $_POST['filter'];
+
+// Determine the date range based on the filter
+$startDate = null;
+$endDate = null;
+if ($filter === 'today') {
+    $startDate = date('Y-m-d 00:00:00');
+    $endDate = date('Y-m-d 23:59:59');
+} elseif ($filter === 'yesterday') {
+    $startDate = date('Y-m-d 00:00:00', strtotime('yesterday'));
+    $endDate = date('Y-m-d 23:59:59', strtotime('yesterday'));
+} elseif ($filter === 'last_week') {
+    $startDate = date('Y-m-d 00:00:00', strtotime('-1 week'));
+    $endDate = date('Y-m-d 23:59:59');
+} elseif ($filter === 'last_month') {
+    $startDate = date('Y-m-d 00:00:00', strtotime('-1 month'));
+    $endDate = date('Y-m-d 23:59:59');
+} elseif ($filter === 'custom') {
+    $startDate = $_POST['start_date']; // Assuming you pass the start_date via AJAX
+    $endDate = $_POST['end_date']; // Assuming you pass the end_date via AJAX
+
+    // Modify the end date to be the next day after the selected end date
+    $endDate = date('Y-m-d 23:59:59', strtotime($endDate . ' +1 day'));
+}
+
+// Search query from the front-end
+$searchQuery = isset($_POST['search']) ? $_POST['search'] : '';
+
+// Pagination settings
+$itemsPerPage = 10;
+$page = $_POST['page'];
+$offset = ($page - 1) * $itemsPerPage;
+
+// Fetch orders with pagination and search filter
+$sql = "SELECT o.*, p.pr_name FROM orders o
+        JOIN products p ON o.product_id = p.sr_no
+        WHERE o.date_time >= ? AND o.date_time <= ?";
+$bindParams = array('ss', $startDate, $endDate);
+
+// Add search filter if provided
+if (!empty($searchQuery)) {
+    $sql .= " AND (o.order_id LIKE ? OR p.pr_name LIKE ? OR o.name LIKE ? 
+                  OR o.address LIKE ? OR o.phone_no LIKE ? OR o.pin LIKE ? 
+                  OR o.payment_status LIKE ? OR o.payment_mode LIKE ? 
+                  OR DATE(o.date_time) = ? OR o.order_status LIKE ?)";
+    $searchQuery = "%$searchQuery%"; // Add wildcard characters for partial matches
+    $bindParams[0] .= 'ssssssssss'; // Add parameter types for search query
+    $bindParams[] = $searchQuery;
+    $bindParams[] = $searchQuery;
+    $bindParams[] = $searchQuery;
+    $bindParams[] = $searchQuery;
+    $bindParams[] = $searchQuery;
+    $bindParams[] = $searchQuery;
+    $bindParams[] = $searchQuery;
+    $bindParams[] = $searchQuery;
+    $bindParams[] = $searchQuery;
+    $bindParams[] = $searchQuery;
+}
+
+$sql .= " ORDER BY o.date_time DESC LIMIT ?, ?";
+$bindParams[0] .= 'ii'; // Add parameter types for pagination
+$bindParams[] = $offset;
+$bindParams[] = $itemsPerPage;
+
+// Prepare and execute the SQL query with bind parameters
+$stmt = $conn->prepare($sql);
+
+// Check if the prepared statement is valid
+if ($stmt === false) {
+    die("Error in prepared statement: " . $conn->error);
+}
+
+// Dynamically bind the parameters using call_user_func_array()
+if (!empty($bindParams)) {
+    $paramTypes = $bindParams[0]; // Get the parameter types string
+    $bindParams = array_slice($bindParams, 1); // Remove the parameter types string from the array
+    $stmt->bind_param($paramTypes, ...$bindParams); // Bind the parameters using spread operator
+}
+
+$stmt->execute();
+$result = $stmt->get_result();
+
+// Display the orders in a searchable table with pagination
+if ($result->num_rows > 0) {
+    echo '<table class="table table-striped">';
+    echo '<thead><tr><th>Order ID</th><th>Order Status</th><th>Product Name</th><th>Qty</th><th>Cust Name</th><th>Address</th><th>Pin</th><th>Phone</th><th>Pay Status</th><th>ModeOfPayment</th><th>Amount</th><th>Date</th></tr></thead>';
+    echo '<tbody>';
+    while ($row = $result->fetch_assoc()) {
+      $pr_id = $row['product_id'];
+        $sql1 = "SELECT * FROM `products` WHERE `products`.`sr_no` = $pr_id";
+            $res1 = mysqli_query($conn, $sql1);
+            if (mysqli_num_rows($res1) > 0) {
+                while ($pr = mysqli_fetch_assoc($res1)) {
+                    $product = $pr['pr_name'];
+                  
+                }
+            }
+        echo '<tr>';
+        echo '<td>' . $row['order_id'] . '</td>';
+        echo '<td>' . $row['order_status'] . '</td>';
+        echo '<td>' . $product . '</td>';
+        echo '<td>' . $row['quantity'] . '</td>';
+        echo '<td>' . $row['name'] . '</td>';
+        echo '<td>' . $row['address'] . '</td>';
+        echo '<td>' . $row['pin'] . '</td>';
+        echo '<td>' . $row['phone_no'] . '</td>';
+        echo '<td>' . $row['payment_status'] . '</td>';
+        echo '<td>' . $row['payment_mode'] . '</td>';
+        echo '<td>' . $row['amount'] . '</td>';
+        echo '<td>' . $row['date_time'] . '</td>';
+        echo '</tr>';
+    }
+    echo '</tbody>';
+    echo '</table>';
+
+    // Pagination links
+    $sqlCount = "SELECT COUNT(*) AS total FROM orders o
+                JOIN products p ON o.product_id = p.sr_no
+                WHERE o.date_time >= ? AND o.date_time <= ?";
+    $bindParamsCount = array('ss', $startDate, $endDate);
+
+    // Add search filter if provided
+    if (!empty($searchQuery)) {
+        $sqlCount .= " AND (o.order_id LIKE ? OR p.pr_name LIKE ? OR o.name LIKE ?)";
+        $searchQuery = "%$searchQuery%"; // Add wildcard characters for partial matches
+        $bindParamsCount[0] .= 'sss'; // Add parameter types for search query
+        $bindParamsCount[] = $searchQuery;
+        $bindParamsCount[] = $searchQuery;
+        $bindParamsCount[] = $searchQuery;
+    }
+
+    $stmtCount = $conn->prepare($sqlCount);
+
+    // Check if the prepared statement is valid
+    if ($stmtCount === false) {
+        die("Error in prepared statement: " . $conn->error);
+    }
+
+    // Dynamically bind the parameters for count query using call_user_func_array()
+    if (!empty($bindParamsCount)) {
+        $paramTypesCount = $bindParamsCount[0]; // Get the parameter types string
+        $bindParamsCount = array_slice($bindParamsCount, 1); // Remove the parameter types string from the array
+        $stmtCount->bind_param($paramTypesCount, ...$bindParamsCount); // Bind the parameters using spread operator
+    }
+
+    $stmtCount->execute();
+    $resultCount = $stmtCount->get_result();
+    $row = $resultCount->fetch_assoc();
+    $totalItems = $row['total'];
+    $totalPages = ceil($totalItems / $itemsPerPage);
+
+    echo '<nav aria-label="Page navigation">';
+    echo '<ul class="pagination">';
+    for ($i = 1; $i <= $totalPages; $i++) {
+        echo '<li class="page-item';
+        if ($i == $page) {
+            echo ' active';
+        }
+        echo '"><a class="page-link pagination-link" href="#" data-page="' . $i . '">' . $i . '</a></li>';
+    }
+    echo '</ul>';
+    echo '</nav>';
+} else {
+    echo '<table class="table table-striped">';
+    echo '<thead><tr><th>Order ID</th><th>Order Status</th><th>Product Name</th><th>Qty</th><th>Cust Name</th><th>Address</th><th>Pin</th><th>Phone</th><th>Pay Status</th><th>ModeOfPayment</th><th>Amount</th><th>Date</th></tr></thead>';
+    echo '<tbody>';
+    echo '<tr>';
+    echo '<td colspan="12">No orders found.</td>';
+    echo '</tr>';
+    echo '</tbody>';
+    echo '</table>';
+}
+
+$stmt->close();
+
+$conn->close();
+?>
+
+
+
+
+
+

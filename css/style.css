@@ -1,0 +1,22 @@
+.bg-custom-1 {
+    background-color: #85144b;
+}
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.bg-custom-2 {
+    background-image: linear-gradient(15deg, 0%, #80d0c7 100%);
+}
+
+.fa {
+    padding-right: 20px;
+    font-size: 30px;
+    width: 50px;
+    text-align: center;
+    text-decoration: none;
+}
+.cat_select {
+    margin-bottom: 100px;
+}
