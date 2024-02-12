@@ -24,7 +24,7 @@ Ahire Agro Mall 2.0 is an advanced e-commerce platform tailored specifically for
 - **Backend**: PHP
 - **Frontend**: HTML, CSS, JavaScript, jQuery, Bootstrap
 - **Authentication**: OTP-based authentication for delivery system
-- **Database**: MySQL or similar relational database management system
+- **Database**: MySQL
 - **Ajax**: Asynchronous JavaScript and XML for dynamic interactions
 - **jQuery and Ajax**: Enables seamless and responsive web interactions
 - **Bootstrap**: Frontend framework for responsive design and UI components
