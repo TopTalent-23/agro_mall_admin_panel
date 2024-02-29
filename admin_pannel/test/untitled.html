@@ -1,4 +1,110 @@
 
+<script>
+  function pay_now() {
+      // Fetch user details from the modal
+      var user_name = jQuery('#userName').val();
+      var user_phone = jQuery('#userPhone').val();
+      var user_email = jQuery('#userEmail').val();
+      var user_addr = jQuery('#deliveryAddress').val();
+      var user_pin = jQuery('#pin').val();
+      var user_id = jQuery('#usr').val();
+// Fetch cart details from the server or calculate them based on your cart
+var cartDetails = <?php echo json_encode($_SESSION['cart']); ?>;
+var grandTotal = 0;
+      var productDetails = [];
+        // Iterate through each product in the cart
+        for (var product_id in cartDetails) {
+          var pr_id = jQuery('#pr_id').val();
+      var quantity = jQuery('#qty').val();
+      var price = jQuery('#price').val();
+      var totalAmount = price * quantity;
+
+          // Add product details to the array
+          productDetails.push({
+              price: price,
+              quantity: quantity,
+              totalAmount: totalAmount
+          });
+
+          // Calculate total amount
+          grandTotal += totalAmount;
+      }
+     
+
+      // Calculate total amount
+      
+
+      // Create options for Razorpay
+      var options = {
+          key: "rzp_test_XkyAfIibqTU8Oz",
+          amount: grandTotal * 100, // Convert totalAmount to paisa (Rupees to Paise conversion)
+          currency: 'INR',
+          name: 'Acme Corp',
+          description: 'Test Transaction',
+          image: 'https://image.freepik.com/free-vector/logo-sample-text_355-558.jpg',
+          handler: function(response) {
+              // Make an AJAX request to your server to handle the payment and order processing
+              jQuery.ajax({
+                  type: 'post',
+                  url: 'razorpay_server.php', // Create this file to handle Razorpay server-side logic
+                  data: {
+                      payment_id: response.razorpay_payment_id,
+                      user_name: user_name,
+                      user_phone: user_phone,
+                      user_email: user_email,
+                      user_addr: user_addr,
+                      user_pin: user_pin,
+                      user_id: user_id,
+                      productDetails: [{
+                          pr_id: pr_id,
+                          price: price,
+                          quantity: quantity,
+                          amt: grandTotal
+                      }]
+                  },
+                  success: function(result) {
+                      // Redirect to the appropriate page after successful payment
+                      window.location.href = 'my_order.php';
+                  }
+              });
+          }
+      };
+
+      // Create a new Razorpay instance and open the checkout form
+      var rzp1 = new Razorpay(options);
+      rzp1.open();
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <!DOCTYPE html>

@@ -1,8 +1,8 @@
 <?php
 $host = "localhost";
-$username = "root";
-$password = "";
-$database = "aahire_agro_mall";
+$username = "id21908296_root";
+$password = "Mo21nu94@jadhav";
+$database = "id21908296_ahire_agro_mall";
 
 
 // Create connection

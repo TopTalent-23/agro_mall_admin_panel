@@ -1,7 +1,14 @@
 <?php
 session_start();
-if (!$_SESSION['admin_logedin']) {
-    header("Loofferion: partials/admin_login.php");
+if (!isset($_SESSION['admin_logedin']) && !isset($_SESSION['manager_logedin']) && !isset($_SESSION['executiveOfficer_logedin']))  {
+  // Display an alert using JavaScript
+  echo "<script>alert('You do not have access to this page. Please go back.')</script>";
+
+  // Redirect the user to the previous page
+  echo "<script>window.history.back();</script>";
+
+  // Exit the script to prevent further execution
+  exit();
 }
 ?>
 <?php
@@ -14,13 +21,14 @@ include("../db_config.php");
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Products</title>
+    <title>Offers</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="css/admin.css">
+    <script src="https://kit.fontawesome.com/c932d99d51.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <?php
@@ -78,11 +86,11 @@ include("navbar.php");
             <td><?php echo $enddate; ?></td>
             <td><?php echo $creationdate; ?></td>
             <td>
-                <button class="btn btn-sm btn-info" data-bs-toggle="modal"
-                        data-bs-target="#editOfferModal<?php echo $offer_id; ?>">Edit
+                <button class="btn  btn-info" data-bs-toggle="modal"
+                        data-bs-target="#editOfferModal<?php echo $offer_id; ?>"><i class="fa-solid fa-pen-to-square"></i>
                 </button>
-                <button class="btn btn-sm btn-danger delete-offer"
-                        data-id="<?php echo $offer_id; ?>">Delete
+                <button class="btn  btn-danger delete-offer"
+                        data-id="<?php echo $offer_id; ?>"><i class="fa-solid fa-trash"></i>
                 </button>
             </td>
         </tr>
@@ -467,12 +475,12 @@ echo '</div>
             processData: false,
             contentType: false,
             success: function (response) {
-                if (response) {
+                if (response=='success') {
                      Swal.fire("Success", "Offer Added successfully", "success").then(function() {
                 location.reload(); // Reload the page
             });
                 } else {
-                    Swal.fire("Error", "An error occurred while adding the Offer..", "error");
+                    Swal.fire("Error", "An error occurred while adding the Offer.."+ error, "error");
                 }
             },
             error: function (xhr, status, error) {

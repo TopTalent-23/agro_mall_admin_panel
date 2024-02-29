@@ -18,6 +18,7 @@ require 'db_config.php';
 
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
+      
         <?php
         $offer = "SELECT * FROM `offers1`";
         $offerResult = mysqli_query($conn, $offer);
@@ -32,8 +33,9 @@ require 'db_config.php';
                 echo '
                 <div class="carousel-item ' . $activeClass . '">
                     <img src="data:products/jpg;charset=utf8;base64,' . base64_encode($offerData['image']) . '" class="d-block w-100 ideal-size" alt="...">
+                    
                     <div class="carousel-caption">
-                        <h5>' . $offerData['title'] . '</h5>
+                        <h3><b>' . $offerData['title'] . '</b></h3>
                         <p>
                             ' . $offerData['description'] . '
                         </p>
@@ -59,11 +61,12 @@ require 'db_config.php';
 
 <section class="veg_section layout_paddingn mt-4">
   <div class="container">
-    <div class="heading_container text-center mt-2">
-      <h2>
+    <div class="heading_container  mt-2">
+      <h3><b>
         <hr>
         Our Products
-      </h2>
+        </b>
+      </h3>
       <p>
         which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't an
       </p>
@@ -104,32 +107,91 @@ require 'db_config.php';
                 ";
       
       $result = mysqli_query($conn, $sql);
-     while ($row = mysqli_fetch_assoc($result)) {
-                  
-                    echo '<div class="col-sm-6 my-3">
-                <div class="card m-auto shadow border" style="width: 18rem;">
-                    <div class="card-body ">';
-                    ?>
-                    <div class="">
-                         <img src="data:products/jpg;charset=utf8;base64,<?php
-                         echo base64_encode($row['image_content']); ?>" height="200" width="200"
-                         class="card-img-top">
-                      
-                       
-                    </div>
-                    <?php
-                     
-                    echo '<h5 class="card-title mt-2 text-center text-uppercase fs-3 text-success fw-bold">'.$row['pr_name'].'</h5>
-                    <p class="card-title mt-2 text-center"><s class="text-danger fs-5">Rs.'.$row['main_price'].'/-</s> <b class="text-success fs-3">    Rs. '.$row['discounted_price'].'/- </b></p>
-                        <p class="card-text text-center">'.
-                    substr($row['pr_desc'], 0, 90).'...
+      if (!$result) {
+        // Display the SQL error for debugging purposes
+        echo "Error: " . mysqli_error($conn);
+        // You may also log this error for further investigation
+        die();
+    }
+    ?>
+    <style>
+    .card {
+      transition: transform 0.3s ease;
+  }
+
+  
+    .card:hover {
+      /* Define your hover effect styles here */
+      /* For example, change background color */
+      transform: scale(1.1);
+      background-color: #f0f0f0;
+  }
+  p {
+        font-size: 15px /* Adjust this value for smaller screens */
+    }
+  @media (max-width: 768px) {
+     
+    h2 {
+        font-size: 90%; /* Adjust this value for smaller screens */
+    }
+     p {
+        font-size: 87%; /* Adjust this value for smaller screens */
+    }
+     h5 {
+        font-size: 85%; /* Adjust this value for smaller screens */
+    }
+
+        .card {
+            max-width: 100%; /* Adjust the max-width for smaller screens */
+            max-height: 150px; /* Adjust the max-height for smaller screens */
+            display: flex; /* Ensure horizontal layout on small screens */
+            flex-direction: row; /* Ensure horizontal layout on small screens */
+        }
+        .card .col-md-4 {
+            flex: 0 0 30%; /* Adjust width of the image column */
+            max-width: 30%; /* Adjust width of the image column */
+        }
+        .card .col-md-8 {
+            flex: 0 0 70%; /* Adjust width of the content column */
+            max-width: 70%; /* Adjust width of the content column */
+        }
+        .card img {
+            width: 100%; /* Make image fill the width on smaller screens */
+            height: auto; /* Maintain aspect ratio */
+        }
+        .card-body {
+            font-size: smaller; /* Adjust text size for smaller screens */
+        }
+    }
+</style>
+<?php
+while ($row = mysqli_fetch_assoc($result)) {
+    echo '
+    <div class="col-sm-4 my-3">
+    <a href="product_detail.php?category=' . $row['cat_id'] . '&&product=' . $row['sr_no'] . '" style="text-decoration: none; color: black;">
+        <div class="card m-auto shadow border" style="max-width: 540px;">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="data:products/jpg;charset=utf8;base64,' . base64_encode($row['image_content']) . '" class="img-fluid rounded-start" alt="Product Image" style="height: 140px; width: 140px; ">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title text-uppercase text-success fw-bold" style="font-size:20px;">' . $row['pr_name'] . '</h5>
+                        <p class="card-title" style="margin-top:-5px;">
+                            <s class="text-danger" style="font-size:18px;">Rs.' . $row['main_price'] . '/-</s> 
+                            <b class="text-success "style="font-size:20px;">Rs. ' . $row['discounted_price'] . '/-</b>
                         </p>
-                        <a href="product_detail.php?category='.$row['cat_id'].'&&product='.$row['sr_no'].'" class="btn btn-success d-flex justify-content-center"><b>View Product</b></a>
+                        <p class="card-text">' . substr($row['pr_desc'], 0, 30) . '...</p>
+                     
                     </div>
                 </div>
-            </div>';
-                }
-      ?>
+            </div>
+        </div>
+        </a>
+    </div>';
+}
+?>
+
     </div>
     <?php
     $sql = "SELECT COUNT(*) AS total FROM `products`";
@@ -203,31 +265,68 @@ require 'db_config.php';
 
 <section class="about_section text-center" id="About">
 
+
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
 
 <div class="carousel-inner">
 
 <div class="carousel-item active">
+<?php
+$sql = "SELECT image_data FROM shop_gallery_images LIMIT 1";
 
-<img src="https://source.unsplash.com/collection/agriculture/1100x400" class="d-block w-100" alt="...">
+// Execute the query
+$result = mysqli_query($conn, $sql);
 
+// Check if there are any images found in the database
+if (mysqli_num_rows($result) > 0) {
+    // Fetch each row from the result set
+    while ($row = mysqli_fetch_assoc($result)) {
+        // Output the image data directly to the browser
+        echo '<img src="data:image/jpeg;base64,'.base64_encode($row['image_data']).'" class="d-block w-100" style="height:400px" alt="Shop Image">';
+    }
+} else {
+    // No images found in the database
+    echo "No images found.";
+}
+
+// Close the database connection
+
+?>
 <div class="carousel-caption mt-2" style="
 position: absolute;
 top: 0;
 ">
+<?php
+$sql = "SELECT * FROM about_us LIMIT 1"; // Assuming you have only one row for about us
+$result = mysqli_query($conn, $sql);
+
+// Check if the query executed successfully and returned rows
+if ($result && mysqli_num_rows($result) > 0) {
+    $row = mysqli_fetch_assoc($result);
+    // Extract the data from the fetched row
+    $aboutHeading = $row['about_heading'];
+    $aboutDescription = $row['about_description'];
+
+    // Limit the description to 100 characters
+    $limitedDescription = substr($aboutDescription, 0, 100);
+?>
 <div class="heading_container">
-<h2>
-<b>About <span>Us</span></b>
-</h2>
-<hr>
-<h2>
-We Provide <br>
-Agro Products
-</h2>
+<h3>
+<b >About <span>Us</span></b>
+</h3>
+<h4 class"fs-2">
+<?php echo $aboutHeading; ?>
+</h4>
 </div>
 <p>
-Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad ex, sequi amet similique necessitatibus quas minus repudiandae quae culpa optio ipsum quibusdam praesentium saepe qui dolore voluptate iure sit aut.
+<?php echo $limitedDescription; ?>...
 </p>
+<?php
+} else {
+    // Handle the case where no data is found
+    echo "No data found in the about us table.";
+}
+?>
 <a href="about.php" class="btn btn-success">Read More</a>
 </div>
 </div>
@@ -309,6 +408,7 @@ Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad ex, sequi amet simi
             url: "partials/submitContact.php", // Replace with the path to your PHP script
             data: formData,
             success: function (response) {
+              console.log(response);
                 // Example: Display a success message using SweetAlert
                 Swal.fire({
                     icon: 'success',
@@ -323,6 +423,7 @@ Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad ex, sequi amet simi
                 $("#loadingSpinner").hide();
             },
             error: function (error) {
+              console.log(error); 
                 // Example: Display an error message using SweetAlert
                 Swal.fire({
                     icon: 'error',
@@ -340,52 +441,6 @@ Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad ex, sequi amet simi
 </script>
 <!-- end contact section -->
 
-<section class="client_section layout_padding-bottom">
-<div class="container">
-<div class="heading_container heading_center">
-<h2>
-
-</h2>
-</div>
-<div class="heading_container text-center mt-2">
-<h2>
-Owners
-</h2>
-<p>
-which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't an
-</p>
-</div>
-
-<div class="row">
-<div class="col-sm-6 my-2">
-<div class="card m-auto shadow border" style="width: 18rem;">
-<div class="card-body">
-<img src="mayur.jpg" width="200" height="300" class="card-img-top" alt="...">
-<h5 class="card-title mt-2">Mayur Aahire</h5>
-<p class="card-text">
-With supporting text below as a natural lead-in to additional content.
-</p>
-<a href="#" class="btn btn-success">Know More</a>
-</div>
-</div>
-</div>
-<div class="col-sm-6 my-2">
-<div class="card m-auto shadow border " style="width: 18rem;">
-<div class="card-body">
-<img src="jagdish.jpg" width="200" height="300" class="card-img-top" alt="...">
-<h5 class="card-title mt-2">Jagdish Aahire</h5>
-<p class="card-text">
-With supporting text below as a natural lead-in to additional content.
-</p>
-<a href="#" class="btn btn-success">Know More</a>
-</div>
-</div>
-</div>
-</div>
-<hr>
-
-</div>
-</section>
 
 <section class="Partner_section layout_padding-bottom my-4">
 <div class="container">
@@ -394,10 +449,11 @@ With supporting text below as a natural lead-in to additional content.
 
 </h2>
 </div>
-<div class="heading_container text-center mt-2">
-<h2>
+<div class="heading_container  mt-2">
+<h3><b>
 Authorised Business Partner
-</h2>
+</b>
+</h3>
 <p>
 We are glad to tell you, we are Authorised Business partner with JAIN IRRIGATION SYSTEM LIMITED, jalgaon...
 </p>
@@ -406,7 +462,7 @@ We are glad to tell you, we are Authorised Business partner with JAIN IRRIGATION
 <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
 <div class="carousel-inner">
 <div class="carousel-item active">
-<img src="jain_irrigation.jpg" width="1500" height="300" class="d-block w-100" alt="...">
+<img src="jain_irrigation.jpg" width="1500" height="200" class="d-block w-100" alt="...">
 </div>
 
 </div>

@@ -89,10 +89,32 @@ $firstRow = mysqli_fetch_assoc($resultOrderDetails);
             <div class="logo">
                 <img src="../../logo.png" alt="Shop Logo" width="100">
             </div>
-            
+            <?php
+
+$shopName = '';
+$address = '';
+$phone = '';
+$gstin = '';
+
+$sqlAbout = "SELECT shop_name, address, phone1, gstin FROM about_us WHERE id = 1"; // Assuming the about_us table has a single row with id = 1
+$resultAbout = mysqli_query($conn, $sqlAbout);
+
+if (mysqli_num_rows($resultAbout) > 0) {
+    $rowAbout = mysqli_fetch_assoc($resultAbout); // Fetch the row from the result set
+
+    // Now you can access the values from the fetched row
+    $shopName = $rowAbout['shop_name'];
+    $address = $rowAbout['address'];
+    $phone = $rowAbout['phone1'];
+    $gstin = $rowAbout['gstin'];
+    
+}
+?> 
             <div class="shop-name">
-                <h1>Ahire Agro Mall</h1>
-                <p>Satana-Malegaon Road, Aarai, 423213</p>
+                <h1><?php echo $shopName?></h1>
+                <p><?php echo $address?></p>
+                <p>Phone: <?php echo $phone?></p>
+                <p>GSTIN No. <?php echo $gstin?></p>
             </div>
         </div>
 

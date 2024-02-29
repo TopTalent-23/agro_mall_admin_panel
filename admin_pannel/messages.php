@@ -1,9 +1,15 @@
 <?php
 session_start();
-if (!isset($_SESSION['admin_logedin']) || !$_SESSION['admin_logedin']) {
-    header("Location: partials/admin_login.php");
+if (!isset($_SESSION['admin_logedin']) && !isset($_SESSION['manager_logedin']) && !isset($_SESSION['executiveOfficer_logedin']))  {
+    // Display an alert using JavaScript
+    echo "<script>alert('You do not have access to this page. Please go back.')</script>";
+  
+    // Redirect the user to the previous page
+    echo "<script>window.history.back();</script>";
+  
+    // Exit the script to prevent further execution
     exit();
-}
+  }
 ?>
 
 <!DOCTYPE html>
@@ -18,6 +24,7 @@ if (!isset($_SESSION['admin_logedin']) || !$_SESSION['admin_logedin']) {
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="css/admin.css">
+    <script src="https://kit.fontawesome.com/c932d99d51.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -54,7 +61,7 @@ $num = mysqli_num_rows($result);
 
     <?php
     echo '<table class="table table-striped">';
-    echo '<thead><tr><th>Sr.no</th><th>Message ID</th><th>Name</th><th>Phone</th><th>Email</th><th>Timestamp</th><th>Address</th></tr></thead>';
+    echo '<thead><tr><th>Sr.no</th><th>Message ID</th><th>Name</th><th>Phone</th><th>Email</th><th>Timestamp</th><th>View</th></tr></thead>';
     echo '<tbody id="orders-table-body">';
 
     while ($row = $result->fetch_assoc()) {
@@ -67,7 +74,7 @@ $num = mysqli_num_rows($result);
         echo '<td><a href="mailto:' . $row['email'] . '">' . $row['email'] . '</a></td>';
         echo '<td>' . $row['timestamp'] . '</td>';
         echo '<td><a class="btn btn-success" data-bs-toggle="collapse" href="#collapseExample' . $i . '" role="button" aria-expanded="false" aria-controls="collapseExample' . $i . '">
-        View Message
+        <i class="fa-solid fa-eye"></i>
       </a></td>';
         echo '</tr>';
         echo '<tr>';

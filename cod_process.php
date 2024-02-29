@@ -1,6 +1,8 @@
 <?php
 include('db_config.php');
-
+date_default_timezone_set('Asia/Kolkata');
+$sql = "SET time_zone = '+05:30'";
+mysqli_query($conn, $sql);
 function generateOrderID() {
     // Get the current timestamp
     $timestamp = time();
@@ -36,9 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $payment_status = "pending";
   $payment_mode = "Cash-On-Delivery";
  
-  if (isset($_POST['shopVisit'])) {
-   $shopVisit=$_POST['shopVisit'];
-  }
+
   // Validate form inputs
  
   $errors = array();
@@ -84,17 +84,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
  
 
   // Prepare the SQL statement to insert the order details into the database
-  $sql = "INSERT INTO `orders` (`order_id`, `usr_id`, `product_id`, `name`, `phone_no`, `email`, `quantity`, `address`, `pin`, `payment_status`, `payment_mode`, `amount`, `order_status`, `shopVisit`)
-        VALUES ('$orderID', '$usr', $pr_id, '$name', '$phone', '$email', '$quantity', '$address', '$pincode', '$payment_status', '$payment_mode', '$amt', 'not_confirmed', '$shopVisit')";
+  $sql = "INSERT INTO `orders` (`order_id`, `usr_id`, `product_id`, `name`, `phone_no`, `email`, `quantity`, `address`, `pin`, `payment_status`, `payment_mode`, `amount`,`shopVisit`,`payid`, `order_status`, `date_time`)
+        VALUES ('$orderID', '$usr', $pr_id, '$name', '$phone', '$email', '$quantity', '$address', '$pincode', '$payment_status', '$payment_mode', '$amt','-','-', 'not_confirmed', NOW())";
 
   // Execute the SQL statement
   if ($conn->query($sql) === TRUE) {
      echo '<script> alert("Order Placed Successfully...")</script>';
-     if (isset($_POST['shopVisit'])) {
-      echo "<script>window.location.href='admin_pannel/admin_dashboard.php';</script>";
-     }else{
-      echo "<script>window.location.href='".$path."';</script>";
-     }
+     
+      echo "<script>window.location.href='my_order.php';</script>";
+     
      
   
   } else {

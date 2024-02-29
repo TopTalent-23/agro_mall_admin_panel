@@ -8,8 +8,8 @@ $_FILES['images'] != null && !empty($_FILES['images']['name'][0])) {
     $name = $_POST['pr_name'];
     $seed_type = $_POST['seed_type'];
     $net_wt = $_POST['net_wt'];
-    $width = $_POST['width'];
-    $breadth = $_POST['breadth'];
+    $width = isset($_POST['width']) ? intval($_POST['width']) : 0; 
+    $breadth = isset($_POST['breadth']) ? intval($_POST['breadth']) : 0;
     $pr_state = $_POST['pr_state'];
     $manufacturer = $_POST['pr_manufacturer'];
     $desc = $_POST['pr_desc'];
@@ -61,7 +61,7 @@ $_FILES['images'] != null && !empty($_FILES['images']['name'][0])) {
         }
 
         // Success message or further actions
-        $response = 'Product added successfully with ID: ' . $product_id;
+        $response = 'success';
 
     } else {
         // Display error message

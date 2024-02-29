@@ -1,5 +1,13 @@
 <?php
-require 'header.php';
+ob_start();
+include 'header.php';
+
+// Check if the 'logedin' key is set and its value is true
+if (!isset($_GET['product']) || !isset($_GET['category']) || $_GET['product']==null || $_GET['category']==null) {
+    // Redirect to the specified address
+    header("Location: /index.php");
+    exit(); // Ensure that code execution stops after redirection
+}
   
   
 $pr_id = $_GET['product'];
@@ -21,16 +29,23 @@ if ($num > 0) {
     echo '<h1 class="card-title mt-2 text-center text-uppercase fs-1 text-success fw-bold">'.$row['pr_name'].'</h1>';
 
     ?>
-    
-    <div class="row">
+<style>
+    .card1 {
+    background-color: #fff;
+    padding: 2px;
+    margin: 2px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}</style>
+<div class="row">
 
-      <div class="col-sm-6">
-        <div class="card">
-          <div class="card-body">
-      <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-       
-  <div class="carousel-inner">
-    <?php
+    <div class="col-sm-6">
+        <div class="card1">
+            <div class="card-body">
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+
+                    <div class="carousel-inner">
+                        <?php
     $sql1 = "SELECT * FROM product_images WHERE product_id = $pr_id";
     $res1 = mysqli_query($conn, $sql1);
 
@@ -41,57 +56,63 @@ if ($num > 0) {
         $imageContent = base64_encode($row1['image_content']);
         $carouselClass = $firstImage ? 'carousel-item active' : 'carousel-item';
     ?>
-  
-        <div class="<?php echo $carouselClass; ?>">
-          <div class="image-container">
-            <div class="image-wrapper text-center">
-              <img src="data:products/jpg;charset=utf8;base64,<?php echo $imageContent; ?>" alt="...">
-            </div>
-          </div>
-        </div>
-    <?php
+
+                        <div class="<?php echo $carouselClass; ?>">
+                            <div class="image-container">
+                                <div class="image-wrapper text-center">
+                                    <img src="data:products/jpg;charset=utf8;base64,<?php echo $imageContent; ?>"
+                                        alt="...">
+                                </div>
+                            </div>
+                        </div>
+                        <?php
         $firstImage = false; // Set to false for subsequent images
       }
     }
     ?>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="prev">
+                        <i class="fa-solid fa-chevron-left fa-2xl" style="color: #000000;" aria-hidden="true"></i>
+                        
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="next">
+                        <i class="fa-solid fa-chevron-left fa-rotate-180 fa-2xl" style="color: #000000;" aria-hidden="true"></i>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
 
-<style>
-.carousel-inner {
-  text-align: center;
-}
+                <style>
+                .carousel-inner {
+                    text-align: center;
+                }
 
-.image-container {
-  width: 300px; /* Set the desired fixed width */
-  height: 400px; /* Set the desired fixed height */
-  display: inline-block;
-}
+                .image-container {
+                    width: 100%;
+                    /* Set the desired fixed width */
+                    height: 50%;
+                    /* Set the desired fixed height */
+                    display: inline-block;
+                }
 
-.image-wrapper img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-}
-</style>
+                .image-wrapper img {
+                    max-width: 100%;
+                    max-height: 100%;
+                    object-fit: contain;
+                }
+                </style>
 
-          
-          </div>
+
+            </div>
         </div>
-      </div>
+    </div>
 
-      <div class="col-sm-6">
-        <div class="card">
-          <div class="card-body">
-            <?php
+    <div class="col-sm-6">
+        <div class="card1">
+            <div class="card-body">
+                <?php
 
             echo '
                     <h class="card-title mt-6 text-uppercase fs-3 text-success fw-bold">'.$row['pr_name'].' <p class= "fs-5 fw-light">( '.$row['pr_manufacturer'].' )</p></h>
@@ -221,26 +242,68 @@ if ($num > 0) {
              </div>
         
              <div class = "mt-2">
-              <h class="card-title text-uppercase fs-5 ">Discription :</h>
-            <p class="lead">
- '.$row['pr_desc'].'
-</p> </div>';
-   if (isset($_GET['shopVisit'])) {
-  echo '<a class="btn btn-success d-flex mt-2 justify-content-center" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><b>Buy Now</b></a>';
-}
-elseif (!$logedin) {
+              <h class="card-title text-uppercase fs-5 ">Discription :</h>';
+              $words = explode(' ', $row['pr_desc']);
+$initialWords = implode(' ', array_slice($words, 0, 20)); // Display the first 20 words, adjust as needed
+$remainingWords = implode(' ', array_slice($words, 20));
+              ?>
+              <p class="lead"><?php echo $initialWords; ?></p>
+              <?php if (!empty($remainingWords)) : ?>
+                  
+                  <div class="collapse" id="collapseAboutDescription">
+                      <p class="lead"><?php echo $remainingWords; ?></p>
+                  </div>
+                  <a href="#" class="read-more-link" data-bs-toggle="collapse" data-bs-target="#collapseAboutDescription" aria-expanded="false" aria-controls="collapseAboutDescription">Read more</a>
+              <?php endif; ?> </div>
+  <?php
+if (!$logedin) {
               echo '<a class="btn btn-success d-flex mt-2 justify-content-center" data-bs-toggle="modal" data-bs-target="#login"><b>Buy Now</b></a>';
+              echo '<button class="btn btn-outline-success mt-2" data-bs-toggle="modal" data-bs-target="#login">Add to Cart</button>';
             } 
             else {
               echo '<a class="btn btn-success d-flex mt-2 justify-content-center" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><b>Buy Now</b></a>';
+             echo '<button class="btn btn-outline-success mt-2" onclick="addToCart('.$pr_id.')">Add to Cart</button>';
+
             }
             
                
            
            ?>
-            <!-- Button trigger modal -->
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                <!-- add to cart javascript -->
+                <script>
+                function addToCart(productId) {
+                    console.log('Adding product to cart. Product ID:', productId);
+                    // Make an AJAX request to the server
+                    var xhr = new XMLHttpRequest();
+                    xhr.onreadystatechange = function() {
+                        console.log('ReadyState:', xhr.readyState, 'Status:', xhr.status);
+                        if (xhr.readyState === XMLHttpRequest.DONE) {
+                            if (xhr.status === 200) {
+                                // Optionally, provide feedback to the user
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "Product Added",
+                                    text: "The product added to the cart.",
+                                    timer: 2000, // Set the timer to close the alert after 2 seconds
+                                    showConfirmButton: false
+                                });
+                            } else {
+                                console.error('Failed to add product to the cart. Server returned:', xhr.status, xhr
+                                    .responseText);
+                            }
+                        }
+                    };
 
- <?php
+                    // Send a POST request to a server-side script (cart_add.php, for example)
+                    xhr.open('POST', 'cart_add.php', true);
+                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                    xhr.send('product_id=' + encodeURIComponent(productId));
+                }
+                </script>
+                <!-- Button trigger modal -->
+
+                <?php
  if(isset($_SESSION['id'])){
  $usr= $_SESSION['id'];
    $sql1 = "SELECT * FROM `customers` WHERE `sr_no` = '$usr'";
@@ -260,301 +323,306 @@ if ($num1 > 0) {
  }
 ?>
 
-<div class="modal fade  modal-dialog-scrollable" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <form class="mx-auto justify-content-center" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Buy Now</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-    <div class="mb-3">
-        <input type="text" class="form-control" id="name" name="name" 
-        <?php 
-        if (!isset($_GET['shopVisit'])) {
-          echo 'value="'.$name.'"';
-        }elseif ($logedin) {
+                <div class="modal fade  modal-dialog-scrollable" id="staticBackdrop" data-bs-backdrop="static"
+                    data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <form class="mx-auto justify-content-center" action="<?php echo $_SERVER['PHP_SELF']; ?>"
+                            method="post">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">Buy Now</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <input type="text" class="form-control" id="name" name="name" <?php 
+       if ($logedin) {
           echo 'value="'.$name.'"';
         }
         else {
           echo 'placeholder="Enter Name:"';
         }?>>
-    </div>
+                                    </div>
 
-    <div class="mb-3">
-        <input type="number" class="form-control" id="pno" name="phone"
-        <?php 
-        if (!isset($_GET['shopVisit'])) {
-          echo 'value="'.$phone.'"';
-        }elseif ($logedin) {
+                                    <div class="mb-3">
+                                        <input type="number" class="form-control" id="pno" name="phone" <?php 
+      if ($logedin) {
           echo 'value="'.$phone.'"';
         }
         else {
           echo 'placeholder="Enter Phone:"';
-        }?> >
-    </div>
+        }?>>
+                                    </div>
 
-    <div class="mb-3">
-        <input type="email" class="form-control" id="email" name="email"
-        <?php 
-        if (!isset($_GET['shopVisit'])) {
-          echo 'value="'.$email.'"';
-        }elseif ($logedin) {
+                                    <div class="mb-3">
+                                        <input type="email" class="form-control" id="user_email" name="email" <?php 
+       if ($logedin) {
           echo 'value="'.$email.'"';
         }
         else {
           echo 'placeholder="Enter Email:"';
         }?>>
-    </div>
+                                    </div>
 
-    <div class="row">
-    <div class="">
-        <label class="mb-3">Quantity : </label>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <button type="button" class="quantity-left-minus btn btn-danger btn-number fa fa-minus" data-type="minus" data-field="">
-                    <span class="glyphicon glyphicon-minus"></span>
-                </button>
-            </div>
+                                    <div class="row">
+                                        <div class="">
+                                            <label class="mb-3">Quantity : </label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <button type="button"
+                                                        class="quantity-left-minus btn btn-danger btn-number fa fa-minus"
+                                                        data-type="minus" data-field="">
+                                                        <span class="glyphicon glyphicon-minus"></span>
+                                                    </button>
+                                                </div>
 
-            <input type="text" id="quantity" name="quantity" class="form-control input-number"  min="1" max="1000" placeholder="Quantity" value='1'>
+                                                <input type="text" id="quantity" name="quantity"
+                                                    class="form-control input-number" min="1" max="1000"
+                                                    placeholder="Quantity" value='1'>
 
-            <div class="input-group-append">
-                <button type="button" class="quantity-right-plus btn btn-success btn-number fa fa-plus" data-type="plus" data-field="">
-                    <span class="glyphicon glyphicon-plus"></span>
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
+                                                <div class="input-group-append">
+                                                    <button type="button"
+                                                        class="quantity-right-plus btn btn-success btn-number fa fa-plus"
+                                                        data-type="plus" data-field="">
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
 
 
-    <div class="mb-3">
-      Address:
-        <textarea class="form-control" id="addr" rows="3" placeholder="Address"> <?php 
-        if (!isset($_GET['shopVisit'])) {
+                                    <div class="mb-3">
+                                        Address:
+                                        <textarea class="form-control" id="addr" rows="3" placeholder="Address"> <?php 
+       if ($logedin) {
           echo $address;
-        }elseif ($logedin) {
-          echo 'value="'.$address.'"';
         }
         else {
          
         }?></textarea>
-    </div>
+                                    </div>
 
-    <div class="mb-3">
-        <input type="text" class="form-control" id="pin" placeholder="Pincode"  <?php 
-        if (!isset($_GET['shopVisit'])) {
-          echo 'value="'.$pincode.'"';
-        }elseif ($logedin) {
+                                    <div class="mb-3">
+                                        <input type="text" class="form-control" id="pin" placeholder="Pincode" <?php 
+        if ($logedin) {
           echo 'value="'.$pincode.'"';
         }
         else {
           echo 'placeholder="Enter pincode:"';
         }?>>
-        <input type="text" class="form-control" hidden id="pr_id" placeholder="Pincode" value="<?php echo $pr_id; ?>">
-        <input type="text" class="form-control" hidden id="amt" placeholder="Pincode" value="<?php echo $row['discounted_price']; ?>">
-        <input type="text" class="form-control" hidden id="usr" placeholder="Pincode"  <?php 
-        if (!isset($_GET['shopVisit'])) {
-          echo 'value="'.$usr.'"';
-        }elseif ($logedin) {
+                                        <input type="text" class="form-control" hidden id="pr_id" placeholder="Pincode"
+                                            value="<?php echo $pr_id; ?>">
+                                        <input type="text" class="form-control" hidden id="amt" placeholder="Pincode"
+                                            value="<?php echo $row['discounted_price']; ?>">
+                                        <input type="text" class="form-control" hidden id="usr" placeholder="Pincode" <?php 
+       if ($logedin) {
           echo 'value="'.$usr.'"';
         }
         else {
           echo 'placeholder="Enter Email:"';
         }?>>
 
-         <?php 
-        if (isset($_GET['shopVisit']) && $_GET['shopVisit']== 1 ) {
-          echo '<input type="text" class="form-control" hidden id="shopVisit" placeholder="Pincode" value="ShopVisit">';
-        }?>
-    </div>
+                 
+                                    </div>
 
 
 
-<?php
+                                    <?php
 }
+        }else{
+            header("Location: /index.php");
+    exit();
+            
         } 
            ?>
 
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+
+                                    <input type="button" class="btn btn-success" data-bs-toggle="modal"
+                                        data-bs-target="#payNow" value="Pay Now" />
+                                    <input type="button" class="btn btn-success" data-bs-toggle="modal"
+                                        data-bs-target="#cod" value="Cash On Delivery" />
+
+
+
+
+                                </div>
+
+                            </div>
+
+                        </form>
+
                     </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    
-                     <input type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#payNow"  value="Pay Now" />
-                     <input type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#cod" value="Cash On Delivery"/>
-                  
-                 
-                  
-                  
-                    </div>
-                  
+                    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+                    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+                    <script>
+                    function pay_now() {
+                        var name = jQuery('#name').val();
+                        var amt = jQuery('#amt').val();
+                        var pno = jQuery('#pno').val();
+                        var email = jQuery('#user_email').val();
+                        var quantity = jQuery('#quantity').val();
+                        var addr = jQuery('#addr').val();
+                        var pin = jQuery('#pin').val();
+                        var usr = jQuery('#usr').val();
+                        var pr_id = jQuery('#pr_id').val();
+                        var amt = amt * quantity;
+                       
+                        var options = {
+                            key: "rzp_test_XkyAfIibqTU8Oz",
+                            amount: amt * 100,
+                            currency: 'INR',
+                            name: 'Ahire Agro Mall',
+                            description: 'Test Transaction',
+                            image: 'logo.png',
+                            handler: function(response) {
+                                jQuery.ajax({
+                                    type: 'post',
+                                    url: 'buy_server.php',
+                                    data: {
+                                        payment_id: response.razorpay_payment_id,
+                                        amt: amt,
+                                        name: name,
+                                        pno: pno,
+                                        email: email,
+                                        quantity: quantity,
+                                        addr: addr,
+                                        pin: pin,
+                                        pr_id: pr_id,
+                                        usr: usr,
+                                        
+                                    },
+                                    success: function(result) {
+                                      if (result) {
+                        // Unset or clear the cart
+
+
+                        // Show SweetAlert for success
+                        Swal.fire({
+                            icon: "success",
+                            title: "Order Placed Successfully",
+                            text: "Thank you for your purchase. Your order has been placed successfully.",
+                            confirmButtonColor: "#28a745",
+                            confirmButtonText: "OK"
+                        }).then(function() {
+                            jQuery.ajax({
+                                type: 'post',
+                                url: 'partials/clear_cart.php', // Create a new PHP file to handle clearing the cart
+                                success: function() {
+                                    // Redirect to the appropriate page after clicking OK
+                                    window.location.href = 'my_order.php';
+                                }
+                            });
+                        });
+                    } else {
+                        // Handle the case when order placement fails
+                        // You may display an error message or take other actions
+                        console.log('Order placement failed');
+                    }
+                                    }
+                                });
+                            }
+                        };
+
+                        var rzp1 = new Razorpay(options);
+                        rzp1.open();
+                    }
+
+                    function processCashOnDelivery() {
+                        // Retrieve form data
+                        var name = document.getElementById('name').value;
+                        var phone = document.getElementById('pno').value;
+                        var email = document.getElementById('user_email').value;
+                        var quantity = document.getElementById('quantity').value;
+                        var address = document.getElementById('addr').value;
+                        var pincode = document.getElementById('pin').value;
+                        var pr_id = document.getElementById('pr_id').value;
+                        var amt = document.getElementById('amt').value;
+                        var usr = document.getElementById('usr').value;
+                        
+                        // Validate form inputs (perform any necessary validation)
+
+                        // Create a new form object
+                        var form = document.createElement('form');
+                        form.action =
+                            'cod_process.php'; // Set the PHP file to handle the cash on delivery order processing
+                        form.method = 'post';
+
+                        // Create input fields and append to the form
+                        var nameInput = document.createElement('input');
+                        nameInput.type = 'text';
+                        nameInput.name = 'name';
+                        nameInput.value = name;
+                        form.appendChild(nameInput);
+
+                        var phoneInput = document.createElement('input');
+                        phoneInput.type = 'number';
+                        phoneInput.name = 'phone';
+                        phoneInput.value = phone;
+                        form.appendChild(phoneInput);
+
+                        var emailInput = document.createElement('input');
+                        emailInput.type = 'email';
+                        emailInput.name = 'email';
+                        emailInput.value = email;
+                        form.appendChild(emailInput);
+
+                        var quantityInput = document.createElement('input');
+                        quantityInput.type = 'number';
+                        quantityInput.name = 'quantity';
+                        quantityInput.value = quantity;
+                        form.appendChild(quantityInput);
+
+                        var addressInput = document.createElement('input');
+                        addressInput.type = 'text';
+                        addressInput.name = 'address';
+                        addressInput.value = address;
+                        form.appendChild(addressInput);
+
+                        var pincodeInput = document.createElement('input');
+                        pincodeInput.type = 'text';
+                        pincodeInput.name = 'pincode';
+                        pincodeInput.value = pincode;
+                        form.appendChild(pincodeInput);
+
+                        var prIdInput = document.createElement('input');
+                        prIdInput.type = 'text';
+                        prIdInput.name = 'pr_id';
+                        prIdInput.value = pr_id;
+                        form.appendChild(prIdInput);
+
+                        var amtInput = document.createElement('input');
+                        amtInput.type = 'text';
+                        amtInput.name = 'amt';
+                        amtInput.value = amt;
+                        form.appendChild(amtInput);
+
+                        var usrInput = document.createElement('input');
+                        usrInput.type = 'text';
+                        usrInput.name = 'usr';
+                        usrInput.value = usr;
+                        form.appendChild(usrInput);
+
+                        
+                        // Submit the form
+                        document.body.appendChild(form);
+                        form.submit();
+                    }
+                    </script>
                 </div>
-                
-                </form>
-                
-              </div>
-              <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 
-<script>
-    function pay_now() {
-  var name = jQuery('#name').val();
-  var amt = jQuery('#amt').val();
-  var pno = jQuery('#pno').val();
-  var email = jQuery('#email').val();
-  var quantity = jQuery('#quantity').val();
-  var addr = jQuery('#addr').val();
-  var pin = jQuery('#pin').val();
-  var usr = jQuery('#usr').val();
-  var pr_id = jQuery('#pr_id').val();
-  var amt = amt * quantity;
-  <?php
-  if (isset($_GET['shopVisit']) && $_GET['shopVisit']== 1 ) {?>
-  var shopVisit = jQuery('#shopVisit').val();
-  <?php }?>
-  var options = {
-    key: "rzp_test_XkyAfIibqTU8Oz",
-    amount: amt * 100,
-    currency: 'INR',
-    name: 'Acme Corp',
-    description: 'Test Transaction',
-    image: 'https://image.freepik.com/free-vector/logo-sample-text_355-558.jpg',
-    handler: function (response) {
-      jQuery.ajax({
-        type: 'post',
-        url: 'buy_server.php',
-        data: {
-          payment_id: response.razorpay_payment_id,
-          amt: amt,
-          name: name,
-          pno: pno,
-          email: email,
-          quantity: quantity,
-          addr: addr,
-          pin: pin,
-          pr_id: pr_id,
-          usr: usr,
-          <?php
-  if (isset($_GET['shopVisit']) && $_GET['shopVisit']== 1 ) {?>
-  shopVisit: shopVisit
-  <?php }?>
-        },
-        success: function (result) {
-          <?php
-  if (isset($_GET['shopVisit']) && $_GET['shopVisit']== 1 ) {?>
-  window.location.href='admin_pannel/admin_dashboard.php';
-  <?php }else{?>
-          window.location.href = 'my_order.php';
-       <?php }?> }
-      });
-    }
-  };
-
-  var rzp1 = new Razorpay(options);
-  rzp1.open();
-}
-
- function processCashOnDelivery() {
-  // Retrieve form data
-  var name = document.getElementById('name').value;
-  var phone = document.getElementById('pno').value;
-  var email = document.getElementById('email').value;
-  var quantity = document.getElementById('quantity').value;
-  var address = document.getElementById('addr').value;
-  var pincode = document.getElementById('pin').value;
-  var pr_id = document.getElementById('pr_id').value;
-  var amt = document.getElementById('amt').value;
-  var usr = document.getElementById('usr').value;
-  <?php
-  if (isset($_GET['shopVisit']) && $_GET['shopVisit']== 1 ) {?>
-  var shopVisit = document.getElementById('shopVisit').value;
-  <?php }?>
-  // Validate form inputs (perform any necessary validation)
-
-  // Create a new form object
-  var form = document.createElement('form');
-  form.action = 'cod_process.php'; // Set the PHP file to handle the cash on delivery order processing
-  form.method = 'post';
-
-  // Create input fields and append to the form
-  var nameInput = document.createElement('input');
-  nameInput.type = 'text';
-  nameInput.name = 'name';
-  nameInput.value = name;
-  form.appendChild(nameInput);
-
-  var phoneInput = document.createElement('input');
-  phoneInput.type = 'number';
-  phoneInput.name = 'phone';
-  phoneInput.value = phone;
-  form.appendChild(phoneInput);
-
-  var emailInput = document.createElement('input');
-  emailInput.type = 'email';
-  emailInput.name = 'email';
-  emailInput.value = email;
-  form.appendChild(emailInput);
-
-  var quantityInput = document.createElement('input');
-  quantityInput.type = 'number';
-  quantityInput.name = 'quantity';
-  quantityInput.value = quantity;
-  form.appendChild(quantityInput);
-
-  var addressInput = document.createElement('input');
-  addressInput.type = 'text';
-  addressInput.name = 'address';
-  addressInput.value = address;
-  form.appendChild(addressInput);
-
-  var pincodeInput = document.createElement('input');
-  pincodeInput.type = 'text';
-  pincodeInput.name = 'pincode';
-  pincodeInput.value = pincode;
-  form.appendChild(pincodeInput);
-
-  var prIdInput = document.createElement('input');
-  prIdInput.type = 'text';
-  prIdInput.name = 'pr_id';
-  prIdInput.value = pr_id;
-  form.appendChild(prIdInput);
-
-  var amtInput = document.createElement('input');
-  amtInput.type = 'text';
-  amtInput.name = 'amt';
-  amtInput.value = amt;
-  form.appendChild(amtInput);
-
-  var usrInput = document.createElement('input');
-  usrInput.type = 'text';
-  usrInput.name = 'usr';
-  usrInput.value = usr;
-  form.appendChild(usrInput);
-
-  <?php
-  if (isset($_GET['shopVisit']) && $_GET['shopVisit']== 1 ) {?>
-  var shopVisitInput = document.createElement('input');
-  shopVisitInput.type = 'text';
-  shopVisitInput.name = 'shopVisit';
-  shopVisitInput.value = shopVisit;
-  form.appendChild(shopVisitInput);
-  <?php }?>
-  // Submit the form
-  document.body.appendChild(form);
-  form.submit();
-}
-
-</script>
             </div>
-    
-         
-      </div>
+        </div>
     </div>
-  </div>
 </div>
 </div>
 </div>
@@ -564,77 +632,81 @@ if ($num1 > 0) {
 <!-- Existing code... -->
 <!-- Product information section -->
 <!-- Existing code... -->
- <!-- Rating and Review Section -->
+<!-- Rating and Review Section -->
 <!-- Rating and Review Section -->
 <style>
-      /* Custom CSS for font-awesome stars */
+/* Custom CSS for font-awesome stars */
 .average-rating {
-  font-size: 5px; /* Adjust the font size to your preference */
-  color: #FFD700; /* Color for filled stars (yellow in this example) */
+    font-size: 5px;
+    /* Adjust the font size to your preference */
+    color: #FFD700;
+    /* Color for filled stars (yellow in this example) */
 }
 
 .average-rating .fa-star-o {
-  color: #ccc; /* Color for empty stars (light gray in this example) */
+    color: #ccc;
+    /* Color for empty stars (light gray in this example) */
 }
-    </style>
+</style>
 <div class="container mt-3">
-  
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <div class="border p-4 rounded">
-        <!-- Display average rating -->
-       
-        
-        <!-- Display all reviews -->
-        <h4>Customer Reviews:</h4>
-        <hr>
-        <div class="mt-3" id="reviewsContainer">
-          <!-- Reviews will be populated dynamically with JavaScript -->
-          <!-- Add the loader/spinner HTML inside the "reviewsContainer" div -->
 
-  <!-- Loader -->
-  <div id="loader" style="display: none;">
-    <div id="loading-indicator" class="text-center mt-3">
-      <div class="spinner-border text-success" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
-    </div>
-  </div>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="border p-4 rounded">
+                <!-- Display average rating -->
 
-        </div>
-        
-        <!-- "View More Reviews" button -->
-        <div id="viewMoreButtonContainer" class="text-center mt-3">
-  <div class="row justify-content-between">
-    <div class="col-auto">
-      <button id="prev" class="btn btn-outline-success btn-sm" style="display: none">Prev</button>
-    </div>
-    
-    <div class="col-auto">
-      <button id="next" class="btn btn-outline-success btn-sm">Next</button>
-    </div>
-  </div>
-</div>
-        
-        <hr>
-        <!-- Review Form -->
-        <h4>Write a Review:</h4>
-        <div id="successMessage" style="display: none;" class="alert alert-success">Review submitted successfully!</div>
-        <form action="submit_review.php" method="post" id="reviewForm">
-          <div class="form-group">
-            <label for="rating">Your Rating:</label>
-            <div class="rating-stars" id="userRatingStars">
-              <!-- Stars will be populated dynamically with JavaScript -->
-              <i class="fa fa-star-o user-rating-star" data-rating="1"></i>
-              <i class="fa fa-star-o user-rating-star" data-rating="2"></i>
-              <i class="fa fa-star-o user-rating-star" data-rating="3"></i>
-              <i class="fa fa-star-o user-rating-star" data-rating="4"></i>
-              <i class="fa fa-star-o user-rating-star" data-rating="5"></i>
-            </div>
-            <input type="hidden" name="user_rating" id="userRating" value="0">
-          </div>
-          
-          <?php
+
+                <!-- Display all reviews -->
+                <h4>Customer Reviews:</h4>
+                <hr>
+                <div class="mt-3" id="reviewsContainer">
+                    <!-- Reviews will be populated dynamically with JavaScript -->
+                    <!-- Add the loader/spinner HTML inside the "reviewsContainer" div -->
+
+                    <!-- Loader -->
+                    <div id="loader" style="display: none;">
+                        <div id="loading-indicator" class="text-center mt-3">
+                            <div class="spinner-border text-success" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- "View More Reviews" button -->
+                <div id="viewMoreButtonContainer" class="text-center mt-3">
+                    <div class="row justify-content-between">
+                        <div class="col-auto">
+                            <button id="prev" class="btn btn-outline-success btn-sm" style="display: none">Prev</button>
+                        </div>
+
+                        <div class="col-auto">
+                            <button id="next" class="btn btn-outline-success btn-sm">Next</button>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+                <!-- Review Form -->
+                <h4>Write a Review:</h4>
+                <div id="successMessage" style="display: none;" class="alert alert-success">Review submitted
+                    successfully!</div>
+                <form action="submit_review.php" method="post" id="reviewForm">
+                    <div class="form-group">
+                        <label for="rating">Your Rating:</label>
+                        <div class="rating-stars" id="userRatingStars">
+                            <!-- Stars will be populated dynamically with JavaScript -->
+                            <i class="fa fa-star-o user-rating-star m-2" data-rating="1"></i>
+                            <i class="fa fa-star-o user-rating-star m-2" data-rating="2"></i>
+                            <i class="fa fa-star-o user-rating-star m-2" data-rating="3"></i>
+                            <i class="fa fa-star-o user-rating-star m-2" data-rating="4"></i>
+                            <i class="fa fa-star-o user-rating-star m-2" data-rating="5"></i>
+                        </div>
+                        <input type="hidden" name="user_rating" id="userRating" value="0">
+                    </div>
+
+                    <?php
           if (!$logedin) {
             echo '<a class="btn btn-success mt-2 justify-content-center" data-bs-toggle="modal" data-bs-target="#login"><b>Login to Review</b></a>';
           } else {
@@ -647,22 +719,22 @@ if ($num1 > 0) {
             <button type="submit" class="btn btn-success mt-2 justify-content-center">Submit Review</button>';
           }
           ?>
-        </form>
-      </div>
+                </form>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <!-- Loader -->
 <div id="loader" style="display: none;">
-  <div id="loading-indicator">
-    <div class="spinner"></div>
-  </div>
+    <div id="loading-indicator">
+        <div class="spinner"></div>
+    </div>
 </div>
 
 <!-- JavaScript -->
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function() {
     const reviewForm = document.querySelector("#reviewForm");
     const loader = document.querySelector("#loader");
     const averageRating = document.querySelector("#averageRating");
@@ -680,242 +752,262 @@ if ($num1 > 0) {
     let totalReviewsCount = 0;
     let allReviews = [];
 
-    reviewForm.addEventListener("submit", function (e) {
-      e.preventDefault();
-      const formData = new FormData(reviewForm);
+    reviewForm.addEventListener("submit", function(e) {
+        e.preventDefault();
+        const formData = new FormData(reviewForm);
 
-      // Display the loader while processing the form submission
-      loader.style.display = "block";
+        // Display the loader while processing the form submission
+        loader.style.display = "block";
 
-      // Implement AJAX request to submit the review
-      fetch(reviewForm.action, {
-        method: "POST",
-        body: formData,
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          // If the review was successfully submitted, fetch and display updated reviews
-          if (data.success) {
-            fetchAndDisplayReviews();
-            // Show the success message
-            successMessage.style.display = "block";
-            // Hide the success message after 3 seconds
-            setTimeout(function () {
-              successMessage.style.display = "none";
-            }, 3000);
-          } else {
-            // If the review submission failed, you can handle the error here if needed.
-            // For example, you can display an error message or perform any other actions.
-          }
+        // Implement AJAX request to submit the review
+        fetch(reviewForm.action, {
+                method: "POST",
+                body: formData,
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                // If the review was successfully submitted, fetch and display updated reviews
+                if (data.success) {
+                    fetchAndDisplayReviews();
+                    // Show the success message
+                    successMessage.style.display = "block";
+                    // Hide the success message after 3 seconds
+                    setTimeout(function() {
+                        successMessage.style.display = "none";
+                    }, 3000);
+                } else {
+                    // If the review submission failed, you can handle the error here if needed.
+                    // For example, you can display an error message or perform any other actions.
+                }
 
-          // Hide the loader
-          loader.style.display = "none";
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-          alert("error");
-          // Hide the loader on error
-          loader.style.display = "none";
-        });
+                // Hide the loader
+                loader.style.display = "none";
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+                alert("error");
+                // Hide the loader on error
+                loader.style.display = "none";
+            });
     });
 
     // Function to fetch and display reviews based on the current page
     function fetchAndDisplayReviews() {
-      const productId = <?php echo $pr_id; ?>;
+        const productId = <?php echo $pr_id; ?>;
 
-      // Fetch the average rating
-fetch(`get_average_rating.php?product_id=${productId}`)
-  .then((response) => response.json())
-  .then((data) => {
-    const averageRatingValue = data.averageRating.toFixed(1);
-    averageRating.textContent = averageRatingValue;
+        // Fetch the average rating
+        fetch(`get_average_rating.php?product_id=${productId}`)
+            .then((response) => response.json())
+            .then((data) => {
+                const averageRatingValue = data.averageRating.toFixed(1);
+                averageRating.textContent = averageRatingValue;
 
-    // Display rating stars (using font-awesome icons)
-    averageRatingStars.innerHTML = "";
-    for (let i = 1; i <= 5; i++) {
-      const star = document.createElement("i");
-      if (i <= averageRatingValue) {
-        star.className = "fa fa-star text-warning";
-      } else {
-         star.classList.remove("fa-star-o");
-      }
-      averageRatingStars.appendChild(star);
+                // Display rating stars (using font-awesome icons)
+                averageRatingStars.innerHTML = "";
+                for (let i = 1; i <= 5; i++) {
+                    const star = document.createElement("i");
+                    if (i <= averageRatingValue) {
+                        star.className = "fa fa-star text-warning m-2";
+                    } else {
+                        star.classList.remove("fa-star-o");
+                    }
+                    averageRatingStars.appendChild(star);
+                }
+            })
+            .catch((error) => {
+                console.error("Error fetching average rating:", error);
+            });
+
+        // Fetch all reviews
+        fetch(`get_product_reviews.php?product_id=${productId}`)
+            .then((response) => response.json())
+            .then((data) => {
+                allReviews = data.reviews;
+                totalReviewsCount = allReviews.length;
+                displayReviews();
+
+                // Hide the loader after reviews are fetched
+                loader.style.display = "none";
+            })
+            .catch((error) => {
+                console.error("Error fetching reviews:", error);
+
+                // Hide the loader after reviews are fetched
+                loader.style.display = "none";
+            });
     }
-  })
-  .catch((error) => {
-    console.error("Error fetching average rating:", error);
-  });
 
-      // Fetch all reviews
-      fetch(`get_product_reviews.php?product_id=${productId}`)
-        .then((response) => response.json())
-        .then((data) => {
-          allReviews = data.reviews;
-          totalReviewsCount = allReviews.length;
-          displayReviews();
-          
-          // Hide the loader after reviews are fetched
-      loader.style.display = "none";
-        })
-        .catch((error) => {
-          console.error("Error fetching reviews:", error);
-          
-          // Hide the loader after reviews are fetched
-      loader.style.display = "none";
-        });
-    }
+    // Function to display reviews for the current page
+    function displayReviews() {
+        const startIndex = (currentPage - 1) * reviewsPerPage;
+        const endIndex = startIndex + reviewsPerPage;
+        const reviewsForCurrentPage = allReviews.slice(startIndex, endIndex);
 
-   // Function to display reviews for the current page
-function displayReviews() {
-  const startIndex = (currentPage - 1) * reviewsPerPage;
-  const endIndex = startIndex + reviewsPerPage;
-  const reviewsForCurrentPage = allReviews.slice(startIndex, endIndex);
-
-  if (reviewsForCurrentPage.length > 0) {
-    reviewsContainer.innerHTML = "";
-    reviewsForCurrentPage.forEach((review) => {
-      const reviewDiv = document.createElement("div");
-      reviewDiv.className = "mb-3";
-      reviewDiv.innerHTML = `
+        if (reviewsForCurrentPage.length > 0) {
+            reviewsContainer.innerHTML = "";
+            reviewsForCurrentPage.forEach((review) => {
+                const reviewDiv = document.createElement("div");
+                reviewDiv.className = "mb-3";
+                reviewDiv.innerHTML = `
         <p class="fw-bold small">${review.user_name}</p>
         <p class="mb-0 small">${review.review_text}</p>
         <div class="rating-stars mt-2 fs-6">
       `;
 
-      for (let i = 1; i <= 5; i++) {
-        const star = document.createElement("i");
-        if (i <= review.rating) {
-          star.className = "fa fa-star text-warning";
+                for (let i = 1; i <= 5; i++) {
+                    const star = document.createElement("i");
+                    if (i <= review.rating) {
+                        star.className = "fa fa-star text-warning m-2";
+                    } else {
+                        star.classList.remove("fa-star-o");
+                    }
+                    reviewDiv.querySelector(".rating-stars").appendChild(star);
+                }
+
+                reviewDiv.innerHTML += "</div>";
+                reviewsContainer.appendChild(reviewDiv);
+            });
+
+            // Check if there are more reviews to show
+            if (endIndex < totalReviewsCount) {
+                // Show the "Next" button if there are more reviews
+                next.style.display = "inline-block";
+            } else {
+                // Hide the "Next" button if all reviews are shown
+                next.style.display = "none";
+            }
         } else {
-          star.classList.remove("fa-star-o");
+            // Hide the "View More Reviews" button if there are no reviews to display
+            viewMoreButtonContainer.style.display = "none";
+            reviewsContainer.innerHTML = "<p>No reviews yet. <br> Be the first person to review..</p>";
         }
-        reviewDiv.querySelector(".rating-stars").appendChild(star);
-      }
-
-      reviewDiv.innerHTML += "</div>";
-      reviewsContainer.appendChild(reviewDiv);
-    });
-
-    // Check if there are more reviews to show
-    if (endIndex < totalReviewsCount) {
-      // Show the "Next" button if there are more reviews
-      next.style.display = "inline-block";
-    } else {
-      // Hide the "Next" button if all reviews are shown
-      next.style.display = "none";
     }
-  } else {
-    // Hide the "View More Reviews" button if there are no reviews to display
-    viewMoreButtonContainer.style.display = "none";
-    reviewsContainer.innerHTML = "<p>No reviews yet. <br> Be the first person to review..</p>";
-  }
-}
 
 
-     // Handle user rating selection
+    // Handle user rating selection
     const userRatingStars = document.querySelectorAll(".user-rating-star");
     const userRatingInput = document.querySelector("#userRating");
- function updateUserRating(rating) {
-      userRatingInput.value = rating;
 
-      // Update the visual display of stars based on the selected rating
-      userRatingStars.forEach((star, index) => {
-        if (index < rating) {
-          star.classList.add("text-warning"); // Fill stars with warning color
-          star.classList.remove("fa-star-o"); // Remove empty star class
-          star.classList.add("fa-star"); // Add filled star class
-        } else {
-          star.classList.remove("text-warning"); // Empty stars
-          star.classList.remove("fa-star"); // Remove filled star class
-          star.classList.add("fa-star-o"); // Add empty star class
-        }
-      });
+    function updateUserRating(rating) {
+        userRatingInput.value = rating;
+
+        // Update the visual display of stars based on the selected rating
+        userRatingStars.forEach((star, index) => {
+            if (index < rating) {
+                star.classList.add("text-warning"); // Fill stars with warning color
+                star.classList.remove("fa-star-o"); // Remove empty star class
+                star.classList.add("fa-star"); // Add filled star class
+            } else {
+                star.classList.remove("text-warning"); // Empty stars
+                star.classList.remove("fa-star"); // Remove filled star class
+                star.classList.add("fa-star-o"); // Add empty star class
+            }
+        });
     }
 
     // Initially set the user rating to 0 (empty stars)
     updateUserRating(0);
 
     userRatingStars.forEach((star) => {
-      star.addEventListener("click", function () {
-        const rating = parseInt(this.dataset.rating);
-        updateUserRating(rating);
-      });
+        star.addEventListener("click", function() {
+            const rating = parseInt(this.dataset.rating);
+            updateUserRating(rating);
+        });
 
-      star.addEventListener("mouseover", function () {
-        const rating = parseInt(this.dataset.rating);
-        updateUserRating(rating);
-      });
+        star.addEventListener("mouseover", function() {
+            const rating = parseInt(this.dataset.rating);
+            updateUserRating(rating);
+        });
 
-      star.addEventListener("mouseout", function () {
-        const userRating = parseInt(userRatingInput.value);
-        updateUserRating(userRating);
-      });
+        star.addEventListener("mouseout", function() {
+            const userRating = parseInt(userRatingInput.value);
+            updateUserRating(userRating);
+        });
     });
     // Function to handle "View More Reviews" button click
-    next.addEventListener("click", function () {
-      currentPage++; // Move to the next page
-      displayReviews();
+    next.addEventListener("click", function() {
+        currentPage++; // Move to the next page
+        displayReviews();
 
-// Show the loader while fetching the next page reviews
-  loader.style.display = "block";
-      // Show the "Prev" button when on the second page or beyond
-      if (currentPage > 1) {
-        prev.style.display = "inline-block";
-      }
+        // Show the loader while fetching the next page reviews
+        loader.style.display = "block";
+        // Show the "Prev" button when on the second page or beyond
+        if (currentPage > 1) {
+            prev.style.display = "inline-block";
+        }
     });
 
-    prev.addEventListener("click", function () {
-      currentPage--; // Move to the previous page
-      displayReviews();
+    prev.addEventListener("click", function() {
+        currentPage--; // Move to the previous page
+        displayReviews();
 
-      // Hide the "Prev" button if on the first page
-      if (currentPage === 1) {
-        prev.style.display = "none";
-      }
- // Show the loader while fetching the previous page reviews
-  loader.style.display = "block";
-      // Show the "Next" button when going back to a previous page
-      next.style.display = "inline-block";
+        // Hide the "Prev" button if on the first page
+        if (currentPage === 1) {
+            prev.style.display = "none";
+        }
+        // Show the loader while fetching the previous page reviews
+        loader.style.display = "block";
+        // Show the "Next" button when going back to a previous page
+        next.style.display = "inline-block";
     });
 
     // Fetch and display initial reviews on page load
     fetchAndDisplayReviews();
-  });
+});
 </script>
 <!-- relatate products css -->
 <style>
-  .scrollbar-horizontal {
+  .card {
+      transition: transform 0.3s ease;
+  }
+
+  
+    .card:hover {
+      /* Define your hover effect styles here */
+      /* For example, change background color */
+      transform: scale(1.1);
+      /* background-color: #f0f0f0; */
+  }
+.scrollbar-horizontal {
     overflow-x: scroll;
-  }
+}
 
-  .scrollbar-horizontal__wrapper {
+.scrollbar-horizontal__wrapper {
     display: inline-flex;
-  }
+}
 
-  .scrollbar-horizontal__content {
+.scrollbar-horizontal__content {
     white-space: nowrap;
-  }
+}
 
-  .related-product-card {
-   
+.related-product-card {
+
     margin-bottom: 30px;
     margin-right: 5px;
     display: inline-block;
-  }
-  .card-body{
-    margin: 5px;
-  }
- .card-body a{
-    text-decoration: none;
-  }
-  .card-body img{
-    /* aspect-ratio: 3/2; */
-  }
+}
 
-  .related-product-card .card-img-top {
+.card-body {
+    margin: 5px;
+}
+
+.card-body a {
+    text-decoration: none;
+}
+
+.card-body img {
+    /* aspect-ratio: 3/2; */
+    margin: 0;
+    padding: 0;
+}
+
+.related-product-card .card-img-top {
     height: 150px;
     /* object-fit: cover; */
-  }
+}
+.related-product-card .img-fluid {
+        margin: 0; /* Remove margin around the image */
+    }
 </style>
 
 <?php
@@ -949,9 +1041,7 @@ if (!$result8) {
               <div class="card m-auto shadow border">
                 <div class="card-body">
                   <a href="product_detail.php?category=' . $cat_id . '&&product=' . $row8['sr_no'] . '" >';
-echo ' <img src="data:products/jpg;charset=utf8;base64,'.
-                         base64_encode($row8['image_content']).'" height="200" width="200"
-                         class="card-img-top">';
+echo ' <img src="data:products/jpg;charset=utf8;base64,' . base64_encode($row8['image_content']) . '" class="img-fluid rounded-start" alt="Product Image" style="height: 150px; width: 150px; ">';
      
 
       echo '<p class="card-text card-title mt-2 text-uppercase fs-5 text-success fw-bold text-center related-product-card-text">' . $row8['pr_name'] . '</p>
@@ -961,7 +1051,7 @@ echo ' <img src="data:products/jpg;charset=utf8;base64,'.
             </p>
            
           </a>
-          </div>
+          </div> 
         </div>
       </div>';
     }
@@ -981,7 +1071,7 @@ include 'partials/loginmodal.php';
 ?>
 
 
- <?php
+<?php
 include 'partials/payNow_confirm_modal.php';
 include 'partials/cod_confirm_modal.php';
 ?>
@@ -989,6 +1079,5 @@ include 'partials/cod_confirm_modal.php';
 <?php
 
 require "footer.php";
+ob_end_flush();
 ?>
-
-

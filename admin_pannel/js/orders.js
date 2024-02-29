@@ -30,7 +30,7 @@
         },
         dataType: "html",
         success: function(response) {
-          
+          console.log(response);
           $("#spinner").hide();
           $("#orders-table-body").html(response);
           
@@ -165,40 +165,71 @@ $(document).on('click', '.status-label', function () {
 });
 
 
-    // Function to perform status update
-    function performStatusUpdate(orderID, newStatus, statusContainer, clickedLabel, currentStatus) {
-      $.ajax({
-        type: "POST",
-        url: "test/update_delivery_status.php",
-        data: { order_id: orderID, new_status: newStatus },
-        success: function (response) {
-          if (response === "Success") {
-            // Update the button state and display a success message using SweetAlert2
-            statusContainer.text(newStatus);
-            $('.status-label[data-order-id="' + orderID + '"]').removeClass('active');
-            clickedLabel.addClass('active'); // Use the saved reference here
-            Swal.fire({
-              title: 'Status Updated',
-              text: 'Order status has been updated successfully.',
-              icon: 'success'
-            });
-          } else {
-            Swal.fire({
-              title: 'Error',
-              text: 'An error occurred while updating status: ' + response,
-              icon: 'error'
-            });
-          }
-        },
-        error: function (xhr, status, error) {
-          Swal.fire({
-            title: 'Error',
-            text: 'An error occurred: ' + error,
-            icon: 'error'
-          });
-        }
+   // Function to perform status update
+function performStatusUpdate(orderID, newStatus, statusContainer, clickedLabel, currentStatus) {
+  $.ajax({
+    type: "POST",
+    url: "update_delivery_status.php",
+    data: { order_id: orderID, new_status: newStatus },
+    success: function (response) {
+      if (response === "Success") {
+        // Update the button state and display a success message using SweetAlert2
+        statusContainer.text(newStatus);
+
+        // Asynchronously send the status update email
+        sendStatusUpdateEmail(orderID, newStatus);
+
+        $('.status-label[data-order-id="' + orderID + '"]').removeClass('active');
+        clickedLabel.addClass('active'); // Use the saved reference here
+        Swal.fire({
+          title: 'Status Updated',
+          text: 'Order status has been updated successfully.',
+          icon: 'success'
+        });
+      } else {
+        Swal.fire({
+          title: 'Error',
+          text: 'An error occurred while updating status: ' + response,
+          icon: 'error'
+        });
+      }
+    },
+    error: function (xhr, status, error) {
+      console.log(error);
+      Swal.fire({
+        title: 'Error',
+        text: 'An error occurred: ' + error,
+        icon: 'error'
       });
     }
+  });
+}
+// Function to asynchronously send status update email
+function sendStatusUpdateEmail(orderId, newStatus) {
+  const formData = new FormData();
+  formData.append('orderId', orderId);
+  formData.append('newStatus', newStatus);
 
+  $.ajax({
+    type: 'POST',
+    url: 'sendStatusUpdateEmail.php',
+    data: formData,
+    contentType: false,  // Don't set content type (automatically set by FormData)
+    processData: false,  // Don't process data (already in FormData format)
+    success: function (data) {
+      if (data === 'success') {
+        console.log("Email sent successfully");
+        // You can add any further handling if needed
+      } else {
+          console.log(data);
+        console.error("Error sending email");
+      }
+    },
+    error: function (error) {
+      console.error("Error sending email", error);
+    }
+  });
+}
 
   });
+  

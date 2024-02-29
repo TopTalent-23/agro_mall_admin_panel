@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!$_SESSION['admin_logedin']) {
+if (!isset($_SESSION['admin_logedin']) && !isset($_SESSION['manager_logedin']) && !isset($_SESSION['executiveOfficer_logedin'])) {
   header("Location: partials/admin_login.php");
   exit; // Stop further execution
 }

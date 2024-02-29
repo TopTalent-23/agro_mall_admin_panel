@@ -1,0 +1,938 @@
+                    Payment ID: pay_NSrMfmXDOG4S3vName: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 47
+            [quantity] => 1
+            [price] => 55
+        )
+
+    [1] => Array
+        (
+            [pr_id] => 55
+            [quantity] => 1
+            [price] => 55
+        )
+
+    [2] => Array
+        (
+            [pr_id] => 56
+            [quantity] => 1
+            [price] => 55
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('ORD-615965b2603888e3b', '47', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '55')SQL Query (Insert): INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('ORD-615965b2603888e3b', '55', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '55')SQL Query (Insert): INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('ORD-615965b2603888e3b', '56', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '55')SQL Query (Update): UPDATE orders SET payment_status='complete', payid='pay_NSrMfmXDOG4S3v', order_status='confirmed' WHERE order_id='ORD-615965b2603888e3b'Order status updated successfully.Payment ID: pay_NSrQJnMnqRN1kDName: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 47
+            [quantity] => 1
+            [price] => 55
+        )
+
+    [1] => Array
+        (
+            [pr_id] => 55
+            [quantity] => 2
+            [price] => 55
+        )
+
+    [2] => Array
+        (
+            [pr_id] => 56
+            [quantity] => 1
+            [price] => 55
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('ORD-350765b261086eb9a', '47', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '55')SQL Query (Insert): INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('ORD-350765b261086eb9a', '55', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '2', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '55')SQL Query (Insert): INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('ORD-350765b261086eb9a', '56', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '55')SQL Query (Update): UPDATE orders SET payment_status='complete', payid='pay_NSrQJnMnqRN1kD', order_status='confirmed' WHERE order_id='ORD-350765b261086eb9a'Order status updated successfully.Payment ID: pay_NSrT5vVZvR2Qi7Name: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 47
+            [quantity] => 1
+            [price] => 1
+        )
+
+    [1] => Array
+        (
+            [pr_id] => 55
+            [quantity] => 2
+            [price] => 2
+        )
+
+    [2] => Array
+        (
+            [pr_id] => 56
+            [quantity] => 1
+            [price] => 1
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('ORD-417965b261a48bbf6', '47', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '1')SQL Query (Insert): INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('ORD-417965b261a48bbf6', '55', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '2', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '2')SQL Query (Insert): INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('ORD-417965b261a48bbf6', '56', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '1')SQL Query (Update): UPDATE orders SET payment_status='complete', payid='pay_NSrT5vVZvR2Qi7', order_status='confirmed' WHERE order_id='ORD-417965b261a48bbf6'Order status updated successfully.Payment ID: pay_NSrZj9THPQvsG1Name: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 47
+            [quantity] => 1
+            [price] => undefined47
+        )
+
+    [1] => Array
+        (
+            [pr_id] => 55
+            [quantity] => 2
+            [price] => undefined55
+        )
+
+    [2] => Array
+        (
+            [pr_id] => 56
+            [quantity] => 1
+            [price] => undefined56
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('ORD-882765b2631d18e60', '47', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', 'undefined47')SQL Query (Insert): INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('ORD-882765b2631d18e60', '55', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '2', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', 'undefined55')SQL Query (Insert): INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('ORD-882765b2631d18e60', '56', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', 'undefined56')SQL Query (Update): UPDATE orders SET payment_status='complete', payid='pay_NSrZj9THPQvsG1', order_status='confirmed' WHERE order_id='ORD-882765b2631d18e60'Order status updated successfully.Payment ID: pay_NSrbsr3jMImkf9Name: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 47
+            [quantity] => 1
+            [price] => 55
+        )
+
+    [1] => Array
+        (
+            [pr_id] => 55
+            [quantity] => 2
+            [price] => 55
+        )
+
+    [2] => Array
+        (
+            [pr_id] => 56
+            [quantity] => 1
+            [price] => 55
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('ORD-351665b263986169a', '47', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '55')SQL Query (Insert): INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('ORD-351665b263986169a', '55', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '2', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '55')SQL Query (Insert): INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('ORD-351665b263986169a', '56', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '55')SQL Query (Update): UPDATE orders SET payment_status='complete', payid='pay_NSrbsr3jMImkf9', order_status='confirmed' WHERE order_id='ORD-351665b263986169a'Order status updated successfully.Payment ID: pay_NSruBkUaOms58qName: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 47
+            [quantity] => 1
+            [price] => 55
+        )
+
+    [1] => Array
+        (
+            [pr_id] => 55
+            [quantity] => 2
+            [price] => 55
+        )
+
+    [2] => Array
+        (
+            [pr_id] => 56
+            [quantity] => 1
+            [price] => 55
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('ORD-385965b267a79a487', '47', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '55')SQL Query (Insert): INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('ORD-385965b267a79a487', '55', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '2', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '55')SQL Query (Insert): INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('ORD-385965b267a79a487', '56', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '55')SQL Query (Update): UPDATE orders SET payment_status='complete', payid='pay_NSruBkUaOms58q', order_status='confirmed' WHERE order_id='ORD-385965b267a79a487'Order status updated successfully.Payment ID: pay_NSrvIUPKQQaupzName: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 47
+            [quantity] => 1
+            [price] => 55
+        )
+
+    [1] => Array
+        (
+            [pr_id] => 55
+            [quantity] => 2
+            [price] => 55
+        )
+
+    [2] => Array
+        (
+            [pr_id] => 56
+            [quantity] => 1
+            [price] => 55
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('ORD-914565b267e6a17aa', '47', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '55')SQL Query (Insert): INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('ORD-914565b267e6a17aa', '55', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '2', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '55')SQL Query (Insert): INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('ORD-914565b267e6a17aa', '56', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '55')SQL Query (Update): UPDATE orders SET payment_status='complete', payid='pay_NSrvIUPKQQaupz', order_status='confirmed' WHERE order_id='ORD-914565b267e6a17aa'Order status updated successfully.Payment ID: pay_NSrx7XkXrLnW9GName: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 47
+            [quantity] => 1
+            [price] => 55
+        )
+
+    [1] => Array
+        (
+            [pr_id] => 47
+            [quantity] => 1
+            [price] => 55
+        )
+
+    [2] => Array
+        (
+            [pr_id] => 47
+            [quantity] => 1
+            [price] => 55
+        )
+
+    [3] => Array
+        (
+            [pr_id] => 55
+            [quantity] => 2
+            [price] => 55
+        )
+
+    [4] => Array
+        (
+            [pr_id] => 55
+            [quantity] => 2
+            [price] => 55
+        )
+
+    [5] => Array
+        (
+            [pr_id] => 55
+            [quantity] => 2
+            [price] => 55
+        )
+
+    [6] => Array
+        (
+            [pr_id] => 56
+            [quantity] => 1
+            [price] => 55
+        )
+
+    [7] => Array
+        (
+            [pr_id] => 56
+            [quantity] => 1
+            [price] => 55
+        )
+
+    [8] => Array
+        (
+            [pr_id] => 56
+            [quantity] => 1
+            [price] => 55
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('ORD-355565b2684e46c60', '47', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '55')SQL Query (Insert): INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('ORD-355565b2684e46c60', '47', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '55')SQL Query (Insert): INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('ORD-355565b2684e46c60', '47', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '55')SQL Query (Insert): INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('ORD-355565b2684e46c60', '55', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '2', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '55')SQL Query (Insert): INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('ORD-355565b2684e46c60', '55', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '2', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '55')SQL Query (Insert): INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('ORD-355565b2684e46c60', '55', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '2', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '55')SQL Query (Insert): INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('ORD-355565b2684e46c60', '56', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '55')SQL Query (Insert): INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('ORD-355565b2684e46c60', '56', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '55')SQL Query (Insert): INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('ORD-355565b2684e46c60', '56', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '55')SQL Query (Update): UPDATE orders SET payment_status='complete', payid='pay_NSrx7XkXrLnW9G', order_status='confirmed' WHERE order_id='ORD-355565b2684e46c60'Order status updated successfully.Payment ID: pay_NSs12yHWfF2JKIName: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 47
+            [quantity] => 1
+            [price] => 55
+        )
+
+    [1] => Array
+        (
+            [pr_id] => 55
+            [quantity] => 2
+            [price] => 55
+        )
+
+    [2] => Array
+        (
+            [pr_id] => 56
+            [quantity] => 1
+            [price] => 55
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('ORD-965965b2692dca86a', '47', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '55')SQL Query (Insert): INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('ORD-965965b2692dca86a', '55', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '2', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '55')SQL Query (Insert): INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('ORD-965965b2692dca86a', '56', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '55')SQL Query (Update): UPDATE orders SET payment_status='complete', payid='pay_NSs12yHWfF2JKI', order_status='confirmed' WHERE order_id='ORD-965965b2692dca86a'Order status updated successfully.Payment ID: pay_NSs2ExDXHzyNJkName: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 47
+            [quantity] => 1
+            [price] => 156
+        )
+
+    [1] => Array
+        (
+            [pr_id] => 55
+            [quantity] => 3
+            [price] => 156
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('ORD-560065b2697154a82', '47', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '156')SQL Query (Insert): INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('ORD-560065b2697154a82', '55', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '3', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '156')SQL Query (Update): UPDATE orders SET payment_status='complete', payid='pay_NSs2ExDXHzyNJk', order_status='confirmed' WHERE order_id='ORD-560065b2697154a82'Order status updated successfully.Payment ID: pay_NSs54nH4Wbb4X3Name: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 47
+            [quantity] => 1
+            [price] => 156
+        )
+
+    [1] => Array
+        (
+            [pr_id] => 55
+            [quantity] => 3
+            [price] => 156
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('ORD-573565b26a1209193', '47', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '156')SQL Query (Insert): INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('ORD-573565b26a1209193', '55', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '3', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '156')SQL Query (Update): UPDATE orders SET payment_status='complete', payid='pay_NSs54nH4Wbb4X3', order_status='confirmed' WHERE order_id='ORD-573565b26a1209193'Order status updated successfully.Payment ID: pay_NSsE29BrOPsoLtName: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 47
+            [quantity] => 1
+            [price] => 89
+        )
+
+    [1] => Array
+        (
+            [pr_id] => 55
+            [quantity] => 3
+            [price] => 156
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('ORD-595065b26c0e547b2', '47', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '89')SQL Query (Insert): INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('ORD-595065b26c0e547b2', '55', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '3', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '156')SQL Query (Update): UPDATE orders SET payment_status='complete', payid='pay_NSsE29BrOPsoLt', order_status='confirmed' WHERE order_id='ORD-595065b26c0e547b2'Order status updated successfully.Payment ID: pay_NSsKXAwU00J2cyName: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 47
+            [quantity] => 1
+            [price] => 89
+        )
+
+    [1] => Array
+        (
+            [pr_id] => 55
+            [quantity] => 3
+            [price] => 156
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('1','ORD-196365b26d7fcd204', '47', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '89')SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('1','ORD-196365b26d7fcd204', '55', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '3', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '156')SQL Query (Update): UPDATE orders SET payment_status='complete', payid='pay_NSsKXAwU00J2cy', order_status='confirmed' WHERE order_id='ORD-196365b26d7fcd204'Order status updated successfully.Payment ID: pay_NSsPLww1lqOugFName: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 47
+            [quantity] => 1
+            [price] => 89
+        )
+
+    [1] => Array
+        (
+            [pr_id] => 54
+            [quantity] => 1
+            [price] => 235
+        )
+
+    [2] => Array
+        (
+            [pr_id] => 55
+            [quantity] => 3
+            [price] => 156
+        )
+
+    [3] => Array
+        (
+            [pr_id] => 58
+            [quantity] => 1
+            [price] => 323
+        )
+
+    [4] => Array
+        (
+            [pr_id] => 62
+            [quantity] => 1
+            [price] => 50
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('1','ORD-776665b26e92a65c0', '47', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '89')SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('1','ORD-776665b26e92a65c0', '54', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '235')SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('1','ORD-776665b26e92a65c0', '55', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '3', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '156')SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('1','ORD-776665b26e92a65c0', '58', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '323')SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('1','ORD-776665b26e92a65c0', '62', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '50')SQL Query (Update): UPDATE orders SET payment_status='complete', payid='pay_NSsPLww1lqOugF', order_status='confirmed' WHERE order_id='ORD-776665b26e92a65c0'Order status updated successfully.Payment ID: pay_NSsaiQBhnV0SfgName: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 47
+            [quantity] => 1
+            [price] => 89
+        )
+
+    [1] => Array
+        (
+            [pr_id] => 54
+            [quantity] => 1
+            [price] => 235
+        )
+
+    [2] => Array
+        (
+            [pr_id] => 55
+            [quantity] => 3
+            [price] => 156
+        )
+
+    [3] => Array
+        (
+            [pr_id] => 58
+            [quantity] => 1
+            [price] => 323
+        )
+
+    [4] => Array
+        (
+            [pr_id] => 62
+            [quantity] => 1
+            [price] => 50
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('1','ORD-681565b2711725c58', '47', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '89')SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('1','ORD-681565b2711725c58', '54', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '235')SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('1','ORD-681565b2711725c58', '55', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '3', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '156')SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('1','ORD-681565b2711725c58', '58', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '323')SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('1','ORD-681565b2711725c58', '62', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '50')SQL Query (Update): UPDATE orders SET payment_status='complete', payid='pay_NSsaiQBhnV0Sfg', order_status='confirmed' WHERE order_id='ORD-681565b2711725c58'Order status updated successfully.Payment ID: pay_NSsdbyEytw4U7tName: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 47
+            [quantity] => 1
+            [price] => 89
+        )
+
+    [1] => Array
+        (
+            [pr_id] => 55
+            [quantity] => 1
+            [price] => 52
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('1','ORD-332365b271bb15a6b', '47', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '89')SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('1','ORD-332365b271bb15a6b', '55', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '52')SQL Query (Update): UPDATE orders SET payment_status='complete', payid='pay_NSsdbyEytw4U7t', order_status='confirmed' WHERE order_id='ORD-332365b271bb15a6b'Order status updated successfully.Payment ID: pay_NSsfu6sYoCWu2WName: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 47
+            [quantity] => 1
+            [price] => 89
+        )
+
+    [1] => Array
+        (
+            [pr_id] => 55
+            [quantity] => 1
+            [price] => 52
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('1','ORD-968965b2723dd5c55', '47', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '89')SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('1','ORD-968965b2723dd5c55', '55', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '52')SQL Query (Update): UPDATE orders SET payment_status='complete', payid='pay_NSsfu6sYoCWu2W', order_status='confirmed' WHERE order_id='ORD-968965b2723dd5c55'Order status updated successfully.Payment ID: pay_NSvmBP7INfH8g8Name: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 47
+            [quantity] => 1
+            [price] => 89
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('1','ORD-869465b29ce75201a', '47', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '89')SQL Query (Update): UPDATE orders SET payment_status='complete', payid='pay_NSvmBP7INfH8g8', order_status='confirmed' WHERE order_id='ORD-869465b29ce75201a'Order status updated successfully.Payment ID: pay_NSwIdg1WtrD6giName: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 47
+            [quantity] => 1
+            [price] => 89
+        )
+
+    [1] => Array
+        (
+            [pr_id] => 58
+            [quantity] => 1
+            [price] => 323
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('1','ORD-467065b2a41ac3133', '47', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '89')SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('1','ORD-467065b2a41ac3133', '58', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '323')SQL Query (Update): UPDATE orders SET payment_status='complete', payid='pay_NSwIdg1WtrD6gi', order_status='confirmed' WHERE order_id='ORD-467065b2a41ac3133'Order status updated successfully.Payment ID: Name: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 47
+            [quantity] => 1
+            [price] => 89
+        )
+
+    [1] => Array
+        (
+            [pr_id] => 55
+            [quantity] => 1
+            [price] => 52
+        )
+
+    [2] => Array
+        (
+            [pr_id] => 61
+            [quantity] => 1
+            [price] => 500000
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('1','ORD-905565b2a7eb1f377', '47', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'not_confirmed', ' ', '89')SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('1','ORD-905565b2a7eb1f377', '55', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'not_confirmed', ' ', '52')SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('1','ORD-905565b2a7eb1f377', '61', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'not_confirmed', ' ', '500000')Payment ID: Name: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 47
+            [quantity] => 1
+            [price] => 89
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('1','ORD-625165b2a8a109d50', '47', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'not_confirmed', ' ', '89')Payment ID: Name: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 47
+            [quantity] => 1
+            [price] => 89
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('1','ORD-261865b2a930263e3', '47', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Cash-On-Delivery', 'not_confirmed', ' ', '89')Payment ID: Name: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 47
+            [quantity] => 1
+            [price] => 89
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('1','ORD-255865b2aa8f35d95', '47', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Cash-On-Delivery', 'not_confirmed', ' ', '89')Payment ID: pay_NTB0abuMMmU7p6Name: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 47
+            [quantity] => 1
+            [price] => 89
+        )
+
+    [1] => Array
+        (
+            [pr_id] => 55
+            [quantity] => 1
+            [price] => 52
+        )
+
+    [2] => Array
+        (
+            [pr_id] => 56
+            [quantity] => 1
+            [price] => 55
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('1','ORD-948465b36e72617ca', '47', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '89')SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('1','ORD-948465b36e72617ca', '55', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '52')SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('1','ORD-948465b36e72617ca', '56', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '55')SQL Query (Update): UPDATE orders SET payment_status='complete', payid='pay_NTB0abuMMmU7p6', order_status='confirmed' WHERE order_id='ORD-948465b36e72617ca'Order status updated successfully.Payment ID: Name: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 50
+            [quantity] => 1
+            [price] => 56
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('1','ORD-794265b36eb3e567b', '50', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Cash-On-Delivery', 'not_confirmed', ' ', '56')Payment ID: Name: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 51
+            [quantity] => 1
+            [price] => 345
+        )
+
+    [1] => Array
+        (
+            [pr_id] => 52
+            [quantity] => 1
+            [price] => 234
+        )
+
+    [2] => Array
+        (
+            [pr_id] => 58
+            [quantity] => 1
+            [price] => 323
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('1','ORD-762665b74481a138b', '51', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Cash-On-Delivery', 'not_confirmed', ' ', '345')SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('1','ORD-762665b74481a138b', '52', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Cash-On-Delivery', 'not_confirmed', ' ', '234')SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('1','ORD-762665b74481a138b', '58', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Cash-On-Delivery', 'not_confirmed', ' ', '323')Payment ID: Name: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 47
+            [quantity] => 1
+            [price] => 89
+        )
+
+    [1] => Array
+        (
+            [pr_id] => 48
+            [quantity] => 1
+            [price] => 0
+        )
+
+    [2] => Array
+        (
+            [pr_id] => 61
+            [quantity] => 1
+            [price] => 500000
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('1','ORD-840265bccd6559ddf', '47', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Cash-On-Delivery', 'not_confirmed', ' ', '89')SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('1','ORD-840265bccd6559ddf', '48', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Cash-On-Delivery', 'not_confirmed', ' ', '0')SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('1','ORD-840265bccd6559ddf', '61', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Cash-On-Delivery', 'not_confirmed', ' ', '500000')Payment ID: pay_NXcOGiTCXlXZtbName: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 50
+            [quantity] => 1
+            [price] => 56
+        )
+
+    [1] => Array
+        (
+            [pr_id] => 54
+            [quantity] => 1
+            [price] => 235
+        )
+
+    [2] => Array
+        (
+            [pr_id] => 72
+            [quantity] => 1
+            [price] => 50
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('1','ORD-146365c23ab03d8ab', '50', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '56')SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('1','ORD-146365c23ab03d8ab', '54', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '235')SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount) 
+                               VALUES ('1','ORD-146365c23ab03d8ab', '72', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '50')SQL Query (Update): UPDATE orders SET payment_status='complete', payid='pay_NXcOGiTCXlXZtb', order_status='confirmed' WHERE order_id='ORD-146365c23ab03d8ab'Order status updated successfully.Payment ID: pay_NY6ljMtxp6OLoRName: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 47
+            [quantity] => 1
+            [price] => 89
+        )
+
+    [1] => Array
+        (
+            [pr_id] => 55
+            [quantity] => 1
+            [price] => 52
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount, secret_key) 
+                               VALUES ('1','ORD-108365c3dc942017d', '47', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '89', '905684')SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount, secret_key) 
+                               VALUES ('1','ORD-108365c3dc942017d', '55', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '52', '905684')SQL Query (Update): UPDATE orders SET payment_status='complete', payid='pay_NY6ljMtxp6OLoR', order_status='confirmed' WHERE order_id='ORD-108365c3dc942017d'Order status updated successfully.Payment ID: Name: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 47
+            [quantity] => 1
+            [price] => 89
+        )
+
+    [1] => Array
+        (
+            [pr_id] => 56
+            [quantity] => 1
+            [price] => 55
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount, secret_key) 
+                               VALUES ('1','ORD-386765c3dcdabc303', '47', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Cash-On-Delivery', 'not_confirmed', ' ', '89','932737')SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount, secret_key) 
+                               VALUES ('1','ORD-386765c3dcdabc303', '56', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Cash-On-Delivery', 'not_confirmed', ' ', '55','932737')Payment ID: pay_NaqdGKP9cdmx6WName: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 70
+            [quantity] => 3
+            [price] => 390
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount, secret_key) 
+                               VALUES ('1','ORD-946465ccfd48bbf59', '70', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '3', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '390', '514006')SQL Query (Update): UPDATE orders SET payment_status='complete', payid='pay_NaqdGKP9cdmx6W', order_status='confirmed' WHERE order_id='ORD-946465ccfd48bbf59'Order status updated successfully.Payment ID: pay_Ne0l8JEMCkPY6jName: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 47
+            [quantity] => 1
+            [price] => 89
+        )
+
+    [1] => Array
+        (
+            [pr_id] => 48
+            [quantity] => 1
+            [price] => 0
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount, secret_key) 
+                               VALUES ('1','ORD-352565d787421e734', '47', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '89', '502343')Payment ID: Name: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 47
+            [quantity] => 3
+            [price] => 267
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount, secret_key) 
+                               VALUES ('1','ORD-542165d7889bb3b8d', '47', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '3', 'brahmangaon', '423213', 'pending', 'Cash-On-Delivery', 'not_confirmed', ' ', '267','516408')Payment ID: Name: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 51
+            [quantity] => 1
+            [price] => 345
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount, secret_key) 
+                               VALUES ('1','ORD-142765d789a50ed37', '51', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Cash-On-Delivery', 'not_confirmed', '-', '345','213088')Payment ID: Name: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 53
+            [quantity] => 1
+            [price] => 234
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount, secret_key) 
+                               VALUES ('1','ORD-135665d78b04496af', '53', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Cash-On-Delivery', 'not_confirmed', '-', '234','692163')Payment ID: Name: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 53
+            [quantity] => 1
+            [price] => 234
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount, secret_key) 
+                               VALUES ('1','ORD-753065d78b31b2c18', '53', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Cash-On-Delivery', 'not_confirmed', '-', '234','182446')Payment ID: Name: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 53
+            [quantity] => 1
+            [price] => 234
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount, secret_key) 
+                               VALUES ('1','ORD-987565d78cdc6270a', '53', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Cash-On-Delivery', 'not_confirmed', '-', '234','320758')Name: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 53
+            [quantity] => 1
+            [price] => 234
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, shopVisit,  amount, secret_key) 
+                               VALUES ('1','ORD-505465d78e5b7737d', '53', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Cash-On-Delivery', 'not_confirmed', '-', '-', '234','689032')Name: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 53
+            [quantity] => 1
+            [price] => 234
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, shopVisit,  amount, secret_key) 
+                               VALUES ('1','ORD-214765d78e5ea86d7', '53', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Cash-On-Delivery', 'not_confirmed', '-', '-', '234','878274')Name: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 53
+            [quantity] => 1
+            [price] => 234
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, shopVisit,  amount, secret_key) 
+                               VALUES ('1','ORD-304565d78e73c53bb', '53', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Cash-On-Delivery', 'not_confirmed', '-', '-', '234','154984')SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, shopVisit, amount, secret_key) 
+                               VALUES ('1', 'ORD-159065d78f430e8db', '53', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Cash-On-Delivery', 'not_confirmed', '-', '-', '234', '')SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, shopVisit, amount, secret_key) 
+                               VALUES ('1','ORD-910065d7903107d47', '70', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Cash-On-Delivery', 'not_confirmed', '-', '-', '130','')SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, shopVisit, amount, secret_key) 
+                               VALUES ('1','ORD-439665d790cf390bc', '51', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '2', 'brahmangaon', '423213', 'pending', 'Cash-On-Delivery', 'not_confirmed', '-', '-', '690','')SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, shopVisit, amount, secret_key) 
+                               VALUES ('1','ORD-989365d7925258a19', '53', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Cash-On-Delivery', 'not_confirmed', '-', '-', '234','229776')SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, shopVisit, amount, secret_key) 
+                               VALUES ('1','ORD-524865d7927721a34', '51', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Cash-On-Delivery', 'not_confirmed', '-', '-', '345','531088')Payment ID: pay_Ne1bLSftSYWJu7Name: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 52
+            [quantity] => 1
+            [price] => 234
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, amount, secret_key) 
+                               VALUES ('1','ORD-371165d792dae94fa', '52', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'confirmed', ' ', '234', '842466')Payment ID: pay_Ne1e3TkTtJbQ6xName: bhaveshPhone: 9067872194Email: vaibhav005jadhav@gmail.comAddress: brahmangaonPincode: 423213User ID: 1Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 52
+            [quantity] => 1
+            [price] => 234
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, shopVisit, amount, secret_key) 
+                               VALUES ('1','ORD-977265d7937104145', '52', 'bhavesh', '9067872194', 'vaibhav005jadhav@gmail.com', '1', 'brahmangaon', '423213', 'pending', 'Online', 'not_confirmed', '-','-', '234', '255947')SQL Query (Update): UPDATE orders SET payment_status='complete', payid='pay_Ne1e3TkTtJbQ6x', order_status='confirmed' WHERE order_id='ORD-977265d7937104145'Order status updated successfully.SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, shopVisit, amount, secret_key) 
+                               VALUES ('15','ORD-292165d8e9ecc96ef', '55', 'Chinmay ', '9876543210', 'b@c.com', '1', 'Rfgs', '423213', 'pending', 'Cash-On-Delivery', 'not_confirmed', '-', '-', '52','798994')Payment ID: pay_NeTNbJIaUKjfBlName: GaneshPhone: 8983562143Email: bhavesh002jadhav@gmail.comAddress: BrahmangaonPincode: 432343User ID: 5Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 47
+            [quantity] => 2
+            [price] => 178
+        )
+
+    [1] => Array
+        (
+            [pr_id] => 48
+            [quantity] => 1
+            [price] => 0
+        )
+
+    [2] => Array
+        (
+            [pr_id] => 56
+            [quantity] => 1
+            [price] => 55
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, shopVisit, amount, secret_key) 
+                               VALUES ('5','ORD-797465d910f7a1ee1', '47', 'Ganesh', '8983562143', 'bhavesh002jadhav@gmail.com', '2', 'Brahmangaon', '432343', 'pending', 'Online', 'not_confirmed', '-','-', '178', '722812')SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, shopVisit, amount, secret_key) 
+                               VALUES ('5','ORD-797465d910f7a1ee1', '48', 'Ganesh', '8983562143', 'bhavesh002jadhav@gmail.com', '1', 'Brahmangaon', '432343', 'pending', 'Online', 'not_confirmed', '-','-', '0', '722812')SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, shopVisit, amount, secret_key) 
+                               VALUES ('5','ORD-797465d910f7a1ee1', '56', 'Ganesh', '8983562143', 'bhavesh002jadhav@gmail.com', '1', 'Brahmangaon', '432343', 'pending', 'Online', 'not_confirmed', '-','-', '55', '722812')SQL Query (Update): UPDATE orders SET payment_status='complete', payid='pay_NeTNbJIaUKjfBl', order_status='confirmed' WHERE order_id='ORD-797465d910f7a1ee1'Order status updated successfully.SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, shopVisit, amount) 
+                               VALUES ('5','ORD-520765d9fa5580af1', '47', 'Ganesh', '8983562143', 'bhavesh002jadhav@gmail.com', '1', 'Brahmangaon', '432343', 'pending', 'Cash-On-Delivery', 'not_confirmed', '-', '-', '89')Payment ID: pay_NekMFvo57lGzWwName: GaneshPhone: 8983562143Email: bhavesh002jadhav@gmail.comAddress: BrahmangaonPincode: 432343User ID: 5Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 47
+            [quantity] => 1
+            [price] => 89
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, shopVisit, amount) 
+                               VALUES ('5','ORD-184965d9fa873e345', '47', 'Ganesh', '8983562143', 'bhavesh002jadhav@gmail.com', '1', 'Brahmangaon', '432343', 'pending', 'Online', 'not_confirmed', '-','-', '89')SQL Query (Update): UPDATE orders SET payment_status='complete', payid='pay_NekMFvo57lGzWw', order_status='confirmed' WHERE order_id='ORD-184965d9fa873e345'Order status updated successfully.SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, shopVisit, amount) 
+                               VALUES ('17','ORD-516265da2733f38fa', '47', 'Bharat ', '9975929727', 'bhavesh28more@gmail.com', '1', 'S.NO.146, PLOT NO.16, Krushnanjali Nagar, Opp Substation gate , Dabhadi Road, Malegaon camp, Malegaon', '423203', 'pending', 'Cash-On-Delivery', 'not_confirmed', '-', '-', '89')SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, shopVisit, amount) 
+                               VALUES ('17','ORD-516265da2733f38fa', '56', 'Bharat ', '9975929727', 'bhavesh28more@gmail.com', '1', 'S.NO.146, PLOT NO.16, Krushnanjali Nagar, Opp Substation gate , Dabhadi Road, Malegaon camp, Malegaon', '423203', 'pending', 'Cash-On-Delivery', 'not_confirmed', '-', '-', '55')SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, shopVisit, amount) 
+                               VALUES ('17','ORD-516265da2733f38fa', '62', 'Bharat ', '9975929727', 'bhavesh28more@gmail.com', '1', 'S.NO.146, PLOT NO.16, Krushnanjali Nagar, Opp Substation gate , Dabhadi Road, Malegaon camp, Malegaon', '423203', 'pending', 'Cash-On-Delivery', 'not_confirmed', '-', '-', '50')SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, shopVisit, amount, date_time) 
+                               VALUES ('5','ORD-104565da5743cc57a', '55', 'Ganesh', '8983562143', 'bhavesh002jadhav@gmail.com', '2', 'Brahmangaon', '432343', 'pending', 'Cash-On-Delivery', 'not_confirmed', '-', '-', '104', NOW())Payment ID: pay_Ner8BdaIk4S6yqName: GaneshPhone: 8983562143Email: bhavesh002jadhav@gmail.comAddress: BrahmangaonPincode: 432343User ID: 5Product Details: Array
+(
+    [0] => Array
+        (
+            [pr_id] => 55
+            [quantity] => 1
+            [price] => 52
+        )
+
+)
+SQL Query (Insert): INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, payid, shopVisit, amount, date_time) 
+                               VALUES ('5','ORD-310365da57b75c3e6', '55', 'Ganesh', '8983562143', 'bhavesh002jadhav@gmail.com', '1', 'Brahmangaon', '432343', 'pending', 'Online', 'not_confirmed', '-','-', '52', NOW())SQL Query (Update): UPDATE orders SET payment_status='complete', payid='pay_Ner8BdaIk4S6yq', order_status='confirmed' WHERE order_id='ORD-310365da57b75c3e6'Order status updated successfully.

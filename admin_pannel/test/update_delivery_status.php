@@ -3,9 +3,9 @@
 
 // Replace with your actual database connection code
 $servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "aahire_agro_mall";
+$username = "id21908296_root";
+$password = "Mo21nu94@jadhav";
+$dbname = "id21908296_ahire_agro_mall";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 

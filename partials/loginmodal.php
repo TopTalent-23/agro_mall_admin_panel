@@ -37,6 +37,7 @@
 <input type="password" class="form-control" id="floatingInput"  name="password"  aria-describedby="emailHelp" placeholder="Net wt.">
 <label for="floatingInput">Password: </label>
 </div>
+<P><a  data-bs-toggle="modal" data-bs-target="#resetPasswordModal" class=" btn-outline-success">Forgot Password?</a></P>
 <div class="form-floating mb-3 ">
     <P>Do not have account: <button type="button"  data-bs-toggle="modal" data-bs-target="#signup" class="btn btn-outline-success">Signup</button></P>
     
@@ -61,6 +62,7 @@
 <input type="password" class="form-control" id="floatingInput"  name="password"  aria-describedby="emailHelp" placeholder="Net wt.">
 <label for="floatingInput">Password: </label>
 </div>
+<P><a  data-bs-toggle="modal" data-bs-target="#resetPasswordModal" class=" btn-outline-success">Forgot Password?</a></P>
 <div class="form-floating mb-3 ">
     <P>Do not have account:<button type="button" data-bs-toggle="modal" data-bs-target="#signup" class="btn btn-outline-success">Signup</button></P>
     </div>
@@ -159,4 +161,29 @@
 </div>
   
   
+  
+  <!-- Add this link to your existing HTML file -->
+
+
+<!-- Add the modal for password reset -->
+<div class="modal fade" id="resetPasswordModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="resetPasswordModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="resetPasswordModalLabel">Reset Password</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="reset_password.php" method="post">
+          <div class="mb-3">
+            <label for="token" class="form-label">Enter your email:</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Reset Password</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
   

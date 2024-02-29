@@ -1,6 +1,8 @@
 <?php
 include('../../db_config.php');
-
+date_default_timezone_set('Asia/Kolkata');
+$sql = "SET time_zone = '+05:30'";
+mysqli_query($conn, $sql);
 function generateOrderID() {
     // Get the current timestamp
     $timestamp = time();
@@ -41,8 +43,8 @@ foreach ($productDetails as $product) {
    
 
     // Insert customer and product details into the orders table
-    $insertOrderDetails = "INSERT INTO orders (order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, shopVisit, payid, amount) 
-                           VALUES ('$orderID', $productID, '$name', '$phone', '$email', $quantity, '$address', '$pin', '$paymentStatus', '$paymentMode', 'delivered', 'ShopVisit', '', $price)";
+    $insertOrderDetails = "INSERT INTO orders (usr_id, order_id, product_id, name, phone_no, email, quantity, address, pin, payment_status, payment_mode, order_status, shopVisit, payid, amount, date_time) 
+                           VALUES (0, '$orderID', '$productID', '$name', '$phone', '$email', '$quantity', '$address', '$pin', '$paymentStatus', '$paymentMode', 'delivered', 'ShopVisit', '', $price, NOW())";
     $resultOrderDetails = mysqli_query($conn, $insertOrderDetails);
 
     if (!$resultOrderDetails) {

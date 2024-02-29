@@ -1,8 +1,17 @@
 <?php
 session_start();
-if (!$_SESSION['admin_logedin']) {
-    header("Location: partials/admin_login.php");
-}
+
+// Check if either 'salesman_logedin' or 'admin_logedin' is not set or falsy
+if (!isset($_SESSION['admin_logedin']) && !isset($_SESSION['manager_logedin']) && !isset($_SESSION['salesman_logedin']))  {
+    // Display an alert using JavaScript
+    echo "<script>alert('You do not have access to this page. Please go back.')</script>";
+  
+    // Redirect the user to the previous page
+    echo "<script>window.history.back();</script>";
+  
+    // Exit the script to prevent further execution
+    exit();
+  }
 ?>
 <?php
 include("../db_config.php");
@@ -22,7 +31,7 @@ mysqli_close($conn);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stylish Searchable Dropdowns</title>
+    <title>Make Order</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -30,6 +39,7 @@ mysqli_close($conn);
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="css/admin.css">
+    <script src="https://kit.fontawesome.com/c932d99d51.js" crossorigin="anonymous"></script>
     <style>
         .select2-container .select2-selection--single,
         .select2-container--default .select2-selection--single {
@@ -177,28 +187,37 @@ include("navbar.php");
 
 <script>
     $(document).ready(function() {
+        $('#placeOrderButton').prop('disabled', true);
+
+    $('.select2').select2();
+
+    // Enable Place Order button when both category and product selections are completed
+    function enablePlaceOrderButton() {
+        $('#placeOrderButton').prop('disabled', false);
+    }
         $('.select2').select2();
 
-        // Handle category selection
-        $('#selectCategory').on('change', function() {
-            var categoryId = $(this).val();
-            if (categoryId !== 'Select') {
-                // Enable and fetch products based on the selected category
-                $('#selectProducts').prop('disabled', false);
-                fetchProducts(categoryId);
-            } else {
-                // If "Select" is chosen, disable products dropdown
-                $('#selectProducts').prop('disabled', true).val('Select a Category First');
-            }
-        });
-
-        function fetchProducts(categoryId) {
-            // Fetch products based on the selected category
-            $.ajax({
-                url: 'partials/get_products.php', // Replace with your server-side script to fetch products
-                method: 'POST',
-                data: { categoryId: categoryId },
-                success: function(data) {
+           // Handle category selection
+           $('#selectCategory').on('change', function () {
+    var categoryId = $(this).val();
+    if (categoryId !== 'Select') {
+        // Clear existing options before fetching new ones
+        $('#selectProducts').empty();
+        // Enable and fetch products based on the selected category
+        $('#selectProducts').prop('disabled', false);
+        fetchProducts(categoryId, enablePlaceOrderButton);
+    } else {
+        // If "Select" is chosen, disable products dropdown
+        $('#selectProducts').prop('disabled', true).val('Select a Category First');
+    }
+});
+    function fetchProducts(categoryId) {
+        // Fetch products based on the selected category
+        $.ajax({
+            url: 'partials/get_products.php',
+            method: 'POST',
+            data: { categoryId: categoryId },
+            success: function(data) {
                     console.log("Raw response:", data);
 
                     // No need to parse the data since it's already an object
@@ -215,6 +234,7 @@ include("navbar.php");
 
                     // Trigger Select2 to update the UI
                     $('#selectProducts').trigger('change');
+                    enablePlaceOrderButton();
                 },
                 error: function() {
                     alert('Error fetching products');
@@ -267,20 +287,24 @@ $('input[name="paymentStatus"]').on('change', function() {
         }
     }
     var totalAmount = 0;
-    function addProduct() {
-        var selectedProduct = $('#selectProducts option:selected');
-        var productName = selectedProduct.text();
-        var quantity = parseInt($('#quantity').val());
-        var price = parseFloat(selectedProduct.data('discounted_price'));
-        var totalPrice = quantity * price;
+function addProduct() {
+    var selectedProduct = $('#selectProducts option:selected');
+    var productName = selectedProduct.text();
+    var quantity = parseInt($('#quantity').val());
+    var price = parseFloat(selectedProduct.data('discounted_price'));
+    var totalPrice = quantity * price;
+    var productID = selectedProduct.val();
+    var categoryID = $('#selectCategory').val(); // Store the category ID
 
-        // Add a new row to the order table
-        var newRow = '<tr><td>' + productName + '</td><td>' + quantity + '</td><td>' + totalPrice + '</td><td><button class="btn btn-danger btn-sm" onclick="deleteProduct(this)">Delete</button></td></tr>';
-        $('#orderBody').append(newRow);
-         // Update the total amount
+    // Add a new row to the order table with both product and category IDs
+    var newRow = '<tr data-product-id="' + productID + '" data-category-id="' + categoryID + '"><td>' + productName + '</td><td>' + quantity + '</td><td>' + totalPrice + '</td><td><button class="btn btn-danger btn-sm" onclick="deleteProduct(this)">Delete</button></td></tr>';
+    $('#orderBody').append(newRow);
+
+    // Update the total amount
     totalAmount += totalPrice;
     updateTotalAmount();
-    }
+}
+
     
 function deleteProduct(button) {
     // Find the closest row and remove it
@@ -289,23 +313,26 @@ function deleteProduct(button) {
     totalAmount -= price;
     updateTotalAmount();
 
-    row.remove();
+    // Use the stored product ID to remove the correct row
+    var productID = row.data('product-id');
+    $('#orderBody tr[data-product-id="' + productID + '"]').remove();
 }
+
 
 function updateTotalAmount() {
     $('#totalAmount').text('Total Amount: ' +'       Rs.' + totalAmount +'/-');
 }
-    function placeOrder() {
+function placeOrder() {
         $('#placeOrderButton').prop('disabled', true);
 
 // Display a loading spinner
 Swal.fire({
-        title: 'Placing Order...',
-        allowOutsideClick: false,
-        didOpen: () => {
-            Swal.showLoading();
-        }
-});
+            title: 'Placing Order...',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
         var customerDetails = {
             name: $('#name').val(),
             phone: $('#phone').val(),
@@ -314,16 +341,17 @@ Swal.fire({
             pin: $('#pin').val()
         };
 
-        var products = [];
-    $('#orderBody tr').each(function() {
+    var products = [];
+    $('#orderBody tr').each(function () {
         var productName = $(this).find('td:first').text();
         var quantity = $(this).find('td:nth-child(2)').text();
         var price = $(this).find('td:nth-child(3)').text();
-        var productID = $('#selectProducts option:contains(' + productName + ')').val();
-        
+        var productID = $(this).data('product-id');
+       // var categoryID = $(this).data('category-id');
 
         products.push({
             productID: productID,
+          //  categoryID: categoryID, // Include category ID
             quantity: quantity,
             price: price
         });
@@ -374,24 +402,25 @@ Swal.fire({
             clearInputs();
         },
         error: function() {
-            console.error('Error placing order');
+    console.error('Error placing order',error);
 
-            // Close the loading spinner
-            Swal.close();
+    // Close the loading spinner
+    Swal.close();
 
-            // Display SweetAlert for error with a button to try again
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'There was an error placing your order. Please try again.',
-                showConfirmButton: true,
-                confirmButtonText: 'Try Again',
-                didClose: function() {
-                    // Enable the Place Order button on close
-                    $('#placeOrderButton').prop('disabled', false);
-                }
-            });
+    // Display SweetAlert for error with a button to try again
+    Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'There was an error placing your order. Please try again.',
+        showConfirmButton: true,
+        confirmButtonText: 'Try Again',
+        didClose: function() {
+            // Enable the Place Order button on close
+            $('#placeOrderButton').prop('disabled', false);
         }
+    });
+}
+
     });
     }
     function clearInputs() {

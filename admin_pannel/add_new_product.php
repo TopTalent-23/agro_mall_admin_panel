@@ -1,8 +1,15 @@
 <?php
 session_start();
-if (!$_SESSION['admin_logedin']) {
-  header("Location: partials/admin_login.php");
-}
+if (!isset($_SESSION['admin_logedin']) && !isset($_SESSION['manager_logedin']) && !isset($_SESSION['executiveOfficer_logedin']))  {
+    // Display an alert using JavaScript
+    echo "<script>alert('You do not have access to this page. Please go back.')</script>";
+  
+    // Redirect the user to the previous page
+    echo "<script>window.history.back();</script>";
+  
+    // Exit the script to prevent further execution
+    exit();
+  }
 ?>
 <!doctype html>
 <html lang="en">
@@ -16,6 +23,7 @@ if (!$_SESSION['admin_logedin']) {
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
        <link rel="stylesheet" href="css/admin.css">
+       <script src="https://kit.fontawesome.com/c932d99d51.js" crossorigin="anonymous"></script>
   </head>
   <body>
    <?php
@@ -122,7 +130,8 @@ $(document).on("click", "#submitForm", function() {
             $("#progressBar").css("width", "100%");
             $("#progressBar").attr("aria-valuenow", 100);
             $("#progressBar").text("100%");
- $("#responseAlert").removeClass("alert-danger").addClass("alert-success").text(response).show();
+            
+ $("#responseAlert").removeClass("alert-danger").addClass("alert-success").text('Product Added Successfully...').show();
             // Clear the form for new record
             $("#myForm")[0].reset();
 
@@ -135,6 +144,7 @@ $(document).on("click", "#submitForm", function() {
         $(this).hide();
     });
     }, 3000); // Adjust the delay in milliseconds as needed
+        
         },
         error: function() {
               $("#responseAlert").removeClass("alert-success").addClass("alert-danger").text("Error submitting form.").show();

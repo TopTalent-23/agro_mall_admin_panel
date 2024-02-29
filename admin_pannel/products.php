@@ -1,8 +1,15 @@
 <?php
 session_start();
-if (!$_SESSION['admin_logedin']) {
-    header("Location: partials/admin_login.php");
-}
+if (!isset($_SESSION['admin_logedin']) && !isset($_SESSION['manager_logedin']) && !isset($_SESSION['executiveOfficer_logedin']))  {
+    // Display an alert using JavaScript
+    echo "<script>alert('You do not have access to this page. Please go back.')</script>";
+  
+    // Redirect the user to the previous page
+    echo "<script>window.history.back();</script>";
+  
+    // Exit the script to prevent further execution
+    exit();
+  }
 ?>
 
 <!DOCTYPE html>
@@ -17,6 +24,7 @@ if (!$_SESSION['admin_logedin']) {
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="css/admin.css">
+    <script src="https://kit.fontawesome.com/c932d99d51.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -51,7 +59,7 @@ if (isset($_GET['search'])) {
             LEFT JOIN `categories` c ON p.cat_id = c.cat_id
             WHERE 
             CONCAT(p.`pr_manufacturer`, ' ',p.`pr_state`, ' ',p.`seed_type`, ' ',p.`sr_no`, ' ',p.`pr_name`, ' ', p.`discounted_price`, ' ',p.`wholesale_price`,  ' ', c.`cat_name`) LIKE '%$search%'
-            LIMIT $start, $productsPerPage";
+            LIMIT $start, $productsPerPage";                 
 } else {
     $show = "SELECT p.*, c.cat_name FROM `products` p
             LEFT JOIN `categories` c ON p.cat_id = c.cat_id
@@ -100,9 +108,9 @@ $totalPages = ceil($totalProducts / $productsPerPage);
             echo '<td>Rs. ' . $row['discounted_price'] . '</td>';
             echo '<td>' . substr($row['pr_desc'], 0, 10) . '...</td>';
             echo '<td>
-            <a href="edit_product.php?category='.$row['cat_id'].'&&product='.$row['sr_no'].'" class="btn btn-sm btn-info edit-product"><b>Edit</b></a>
-            <a href="../product_detail.php?category='.$row['cat_id'].'&&product='.$row['sr_no'].'" class="btn btn-success  justify-content-center"><b>View Product</b></a>
-            <button class="btn btn-sm btn-danger delete-product" data-id="' . $row['sr_no'] . '"><b>Delete</b></button>
+            <a href="edit_product.php?category='.$row['cat_id'].'&&product='.$row['sr_no'].'" class="btn  btn-info edit-product"><b><i class="fa-solid fa-pen-to-square"></i></b></a>
+            <a href="../product_detail.php?category='.$row['cat_id'].'&&product='.$row['sr_no'].'" class="btn btn-success "><b><i class="fa-solid fa-eye"></i></b></a>
+            <button class="btn  btn-danger delete-product" data-id="' . $row['sr_no'] . '"><b><i class="fa-solid fa-trash"></i></b></button>
 
                 </td>';
             echo '</tr>';

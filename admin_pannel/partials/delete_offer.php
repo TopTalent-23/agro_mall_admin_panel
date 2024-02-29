@@ -5,7 +5,7 @@ if (isset($_POST['offerId'])) {
     $offerId = $_POST['offerId'];
 
     // Delete category from the database
-    $deleteQuery = "DELETE FROM `offers` WHERE `id` = '$offerId'";
+    $deleteQuery = "DELETE FROM `offers1` WHERE `id` = '$offerId'";
     $deleteResult = mysqli_query($conn, $deleteQuery);
 
     if ($deleteResult) {

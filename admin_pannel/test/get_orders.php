@@ -2,13 +2,16 @@
 // get_orders.php
 
 // Replace with your actual database connection code
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "aahire_agro_mall";
+$dbHost = "localhost";
+$dbUsername = "id21908296_root";
+$dbPassword = "Mo21nu94@jadhav";
+$dbName = "id21908296_ahire_agro_mall";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-
+// Create database connection
+$conn = mysqli_connect($dbHost, $dbUsername, $dbPassword, $dbName);
+date_default_timezone_set('Asia/Kolkata');
+$sql = "SET time_zone = '+05:30'";
+mysqli_query($conn, $sql);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -16,6 +19,7 @@ if ($conn->connect_error) {
 // Get the filter from the AJAX request
 $filter = $_POST['filter'];
 $statusFilter = $_POST['status_filter'];
+
 // Determine the date range based on the filter
 $startDate = null;
 $endDate = null;
@@ -43,15 +47,17 @@ if ($filter === 'today') {
 $searchQuery = isset($_POST['search']) ? $_POST['search'] : '';
 
 // Pagination settings
-$itemsPerPage = 5;
+$itemsPerPage = 10;
 $page = $_POST['page'];
 $offset = ($page - 1) * $itemsPerPage;
 
 // Fetch orders with pagination and search filter
-$sql = "SELECT o.*, p.pr_name FROM orders o
+$sql = "SELECT o.order_id, p.pr_name, MIN(o.date_time) AS min_date_time, MAX(o.date_time) AS max_date_time,
+        o.name, o.quantity, o.address, o.order_status, o.shopVisit, o.pin, o.phone_no, o.payid, o.payment_status, o.payment_mode, o.date_time AS order_date,
+        GROUP_CONCAT(DISTINCT p.pr_name ORDER BY p.pr_name ASC SEPARATOR ', ') AS product_names
+        FROM orders o
         JOIN products p ON o.product_id = p.sr_no
         WHERE o.date_time >= ? AND o.date_time <= ?";
-$bindParams = array('ss', $startDate, $endDate);
 
 // Add search filter if provided
 if (!empty($searchQuery)) {
@@ -60,29 +66,16 @@ if (!empty($searchQuery)) {
                   OR o.payment_status LIKE ? OR o.payment_mode LIKE ? 
                   OR DATE(o.date_time) = ? OR o.order_status LIKE ?)";
     $searchQuery = "%$searchQuery%"; // Add wildcard characters for partial matches
-    $bindParams[0] .= 'ssssssssss'; // Add parameter types for search query
-    $bindParams[] = $searchQuery;
-    $bindParams[] = $searchQuery;
-    $bindParams[] = $searchQuery;
-    $bindParams[] = $searchQuery;
-    $bindParams[] = $searchQuery;
-    $bindParams[] = $searchQuery;
-    $bindParams[] = $searchQuery;
-    $bindParams[] = $searchQuery;
-    $bindParams[] = $searchQuery;
-    $bindParams[] = $searchQuery;
 }
+
 // Apply status filter if not "All Statuses"
 if ($statusFilter !== 'all') {
     $sql .= " AND o.order_status = ?";
-    $bindParams[0] .= 's'; // Add parameter type for status filter
-    $bindParams[] = $statusFilter;
 }
-$sql .= " ORDER BY o.date_time DESC LIMIT ?, ?";
-$bindParams[0] .= 'ii'; // Add parameter types for pagination
-$bindParams[] = $offset;
-$bindParams[] = $itemsPerPage;
 
+$sql .= " GROUP BY o.order_id
+        ORDER BY max_date_time DESC
+        LIMIT ?, ?";
 // Prepare and execute the SQL query with bind parameters
 $stmt = $conn->prepare($sql);
 
@@ -90,13 +83,35 @@ $stmt = $conn->prepare($sql);
 if ($stmt === false) {
     die("Error in prepared statement: " . $conn->error);
 }
+$bindParams = array();
+$paramTypes = '';
 
-// Dynamically bind the parameters using call_user_func_array()
-if (!empty($bindParams)) {
-    $paramTypes = $bindParams[0]; // Get the parameter types string
-    $bindParams = array_slice($bindParams, 1); // Remove the parameter types string from the array
-    $stmt->bind_param($paramTypes, ...$bindParams); // Bind the parameters using spread operator
+// Bind parameters for date range
+$bindParams[] = &$startDate;
+$bindParams[] = &$endDate;
+$paramTypes .= 'ss';
+
+// Add search filter if provided
+if (!empty($searchQuery)) {
+    for ($i = 1; $i <= 10; $i++) {
+        $bindParams[] = &$searchQuery;
+        $paramTypes .= 's';
+    }
 }
+
+// Apply status filter if not "All Statuses"
+if ($statusFilter !== 'all') {
+    $bindParams[] = &$statusFilter;
+    $paramTypes .= 's';
+}
+
+// Add parameter types for pagination
+$bindParams[] = &$offset;
+$bindParams[] = &$itemsPerPage;
+$paramTypes .= 'ii';
+
+// Prepare and execute the SQL query with bind parameters
+$stmt->bind_param($paramTypes, ...$bindParams);
 
 $stmt->execute();
 $result = $stmt->get_result();
@@ -104,121 +119,167 @@ $i=0;
 // Display the orders in a searchable table with pagination
 if ($result->num_rows > 0) {
     echo '<div id="status-alerts"></div><table class="table table-striped">';
-    echo '<thead><tr><th>Sr.no</th><th>Order ID</th><th>Order Status</th><th>Product Name</th><th>Qty</th><th>Cust Name</th><th>Address</th><th>Date</th><th></th></tr></thead>';
+    echo '<thead><tr><th>Sr.no</th><th>Order ID</th><th>Order Status</th><th>Cust Name</th><th>Payment</th><th>Address</th><th>Date</th><th></th></tr></thead>';
     echo '<tbody id="orders-table-body">';
-    
+
+    $uniqueOrders = array();
+
     while ($row = $result->fetch_assoc()) {
-      $i++;
-      $pr_id = $row['product_id'];
-        $sql1 = "SELECT * FROM `products` WHERE `products`.`sr_no` = $pr_id";
-            $res1 = mysqli_query($conn, $sql1);
-            if (mysqli_num_rows($res1) > 0) {
-             
-                while ($pr = mysqli_fetch_assoc($res1)) {
-                    $product = $pr['pr_name'];
-                  
+        $orderId = $row['order_id'];
+
+        // Check if the order ID is already displayed
+        if (!isset($uniqueOrders[$orderId])) {
+            $uniqueOrders[$orderId] = true;
+
+            echo '<tr>';
+            echo '<td style="width: 50px;">' . ++$i . '</td>';
+            echo '<td>' . $orderId . '</td>';
+            echo '<td><div id="status-container-' . $orderId . '">' . $row['order_status'] . '</div></td>';
+
+            echo '<td>' . $row['name'] . '</td>';
+            echo '<td class="payment-status-container-'.$orderId.'">' . $row['payment_status'] . '</td>';
+            echo '<td>' . $row['address'] . '</td>';
+            echo '<td>' . $row['order_date'] . '</td>';
+            echo '<td><a class="btn btn-success" data-bs-toggle="collapse" href="#collapseExample' . $i . '" role="button" aria-expanded="false" aria-controls="collapseExample1">View</a></td>';
+            echo '</tr>';
+            echo '</tbody>';
+            echo '</table>';
+            echo '<tr>';
+            echo '<td colspan="8" class="p-0">';
+            echo '<div class="collapse" id="collapseExample' . $i . '">';
+            echo '<div class="card card-body">';
+
+            // Query to get all products associated with the order
+            $productsQuery = "SELECT o.*, p.* FROM orders o
+         LEFT JOIN products p ON o.product_id = p.sr_no
+         WHERE o.order_id = '$orderId'";
+            $productsResult = $conn->query($productsQuery);
+            $totalAmount = 0;
+
+            if ($productsResult->num_rows > 0) {
+                echo '<div class="row">';
+                echo '<div class="col-md-12"><strong>Products</strong></div>';
+                echo '</div>';
+                echo '<table class="table table-bordered">';
+                echo '<thead><tr><th>Product Name</th><th>Quantity</th><th>Amount</th></tr></thead>';
+                echo '<tbody>';
+
+                while ($productRow = $productsResult->fetch_assoc()) {
+                    $product = $productRow['pr_name'];
+
+                    // Accumulate the total amount
+                    echo '<tr>';
+                    echo '<td>' . $product . '</td>';
+                    echo '<td>' . $productRow['quantity'] . '</td>';
+                    echo '<td>Rs.' . $productRow['amount'] . '/-</td>';
+                    echo '</tr>';
+                    $totalAmount += $productRow['amount'];
                 }
+
+                echo '</tbody>';
+                echo '</table>';
+                // Display the total amount
+                echo '<div class="row">';
+                echo '<div class="col-md-5"><strong>Total Amount</strong></div>';
+                echo '<div class="col-md-1"><strong>:</strong></div>';
+                echo '<div class="col-md-6">Rs.' . $totalAmount . '/-</div>';
+                echo '</div>';
             }
-        echo '<tr>';
-       
-        echo '<td style="width: 50px;">' . $i . '</td>';
-        echo '<td>' . $row['order_id'] . '</td>';
-        echo '<td><div id="status-container-'.$row['order_id'].'">' . $row['order_status'] . '</div></td>';
 
-        echo '<td>' . $product . '</td>';
-        echo '<td>' . $row['quantity'] . '</td>';
-        echo '<td>' . $row['name'] . '</td>';
-        echo '<td>' . $row['address'] . '</td>';
-        echo '<td>' . $row['date_time'] . '</td>';
-        echo '<td><a class="btn btn-success" data-bs-toggle="collapse" href="#collapseExample'.$i.'" role="button" aria-expanded="false" aria-controls="collapseExample1">
-        View
-      </a></td>';
-    
-        
-        echo '</tr>';
-          echo '</tbody>';
-    echo '</table>';
-echo '<tr>';
-echo '<td colspan="8" class="p-0">
-    <div class="collapse" id="collapseExample' . $i . '">
-    
-          <div class="card card-body">
-            <div class="row">
-                <div class="col-md-5"><strong>Pin</strong></div>
-                <div class="col-md-1"><strong>:</strong></div>
-                <div class="col-md-6">' . $row['pin'] . '</div>
-            </div>
-            <div class="row">
-                <div class="col-md-5"><strong>Phone Number</strong></div>
-                <div class="col-md-1"><strong>:</strong></div>
-                <div class="col-md-6">' . $row['phone_no'] . '</div>
-            </div>
-               
-   
-            <div class="row">
-                <div class="col-md-5"><strong>Payment Status</strong></div>
-                <div class="col-md-1"><strong>:</strong></div>
-                <div class="col-md-6">' . $row['payment_status'] . '</div>
-            </div>
-            <div class="row">
-                <div class="col-md-5"><strong>Payment Mode</strong></div>
-                <div class="col-md-1"><strong>:</strong></div>
-                <div class="col-md-6">' . $row['payment_mode'] . '</div>
-            </div>
-            <div class="row">
-                <div class="col-md-5"><strong>Amount</strong></div>
-                <div class="col-md-1"><strong>:</strong></div>
-                <div class="col-md-6">Rs.' . $row['amount'] . '/-</div>
-            </div>
-              ';
-            if($row['shopVisit']!=null){
-                echo '<div class="row">
-                <div class="col-md-5"><strong>Shop Visit</strong></div>
-                <div class="col-md-1"><strong>:</strong></div>
-                <div class="col-md-6">True</div>
-            </div>';
+            echo '<div class="row">';
+            echo '<div class="col-md-5"><strong>Pin</strong></div>';
+            echo '<div class="col-md-1"><strong>:</strong></div>';
+            echo '<div class="col-md-6">' . $row['pin'] . '</div>';
+            echo '</div>';
+            echo '<div class="row">';
+            echo '<div class="col-md-5"><strong>Phone Number</strong></div>';
+            echo '<div class="col-md-1"><strong>:</strong></div>';
+            echo '<div class="col-md-6">' . $row['phone_no'] . '</div>';
+            echo '</div>';
+            echo '<div class="row">';
+            echo '<div class="col-md-5"><strong>Payment Id</strong></div>';
+            echo '<div class="col-md-1"><strong>:</strong></div>';
+            echo '<div class="col-md-6">' . $row['payid'] . '</div>';
+            echo '</div>';
+            echo '<div class="row">';
+            echo '<div class="col-md-5"><strong>Payment Status</strong></div>';
+            echo '<div class="col-md-1"><strong>:</strong></div>';
+            echo '<div class="col-md-6 payment-status-container-'.$orderId.'">' . $row['payment_status'] . '</div>';
+            echo '</div>';
+            echo '<div class="row">';
+            echo '<div class="col-md-5"><strong>Payment Mode</strong></div>';
+            echo '<div class="col-md-1"><strong>:</strong></div>';
+            echo '<div class="col-md-6 payment-mode-container-'.$orderId.'">' . $row['payment_mode'] . '</div>';
+            echo '</div>';
+
+            if (isset($row['shopVisit'])) {
+                echo '<div class="row">';
+                echo '<div class="col-md-5"><strong>Shop Visit</strong></div>';
+                echo '<div class="col-md-1"><strong>:</strong></div>';
+                echo '<div class="col-md-6">' . ($row['shopVisit'] ? 'True' : 'False') . '</div>';
+                echo '</div>';
             }
-          ?>
+            if ($row['payment_status'] == 'pending') {
+                echo '<div class="row mt-2">';
+echo '<div class="col-md-5"><strong>Update Payment Status</strong></div>';
+echo '<div class="col-md-1"><strong>:</strong></div>';
+echo '<div class="col-md-6">';
+echo '<button class="btn btn-success" data-action="update-payment-status" data-order-id="' . $orderId . '">Complete</button>';
 
-<?php
- echo '<p ><strong> Status :  </strong><span style="font-style: italic; font-weight: normal; color: red;  margin-bottom: 3px;">Note: The status is not reversible for orders in transit, out for delivery, and delivered. So <strong>  Do it Carefully !</strong></span></p>';
-        echo '<div class="btn-group" role="group" aria-label="Delivery Status">';
-       
-$statusOptions = array("cancelled", "confirmed", "placed", "in_transit", "out_for_delivery", "delivered");
-foreach ($statusOptions as $option) {
-    $isActive = $row['order_status'] === $option ? 'active' : '';?>
-   <label class="btn btn-outline-primary status-label <?php echo $isActive; ?>"
-       data-order-id="<?php echo $row['order_id']; ?>"
-       data-new-status="<?php echo $option; ?>"
-       for="status_<?php echo $row['order_id'] . '_' . $option; ?>">
-    <?php echo ucwords(str_replace("_", " ", $option)); ?>
-</label>
-<?php
-}
-echo '</div>
+echo '</div>';
+echo '</div>';
+            }
+            echo '<div class="row mt-2">';
+echo '<div class="col-md-5"><strong>View bill</strong></div>';
+echo '<div class="col-md-1"><strong>:</strong></div>';
+echo '<div class="col-md-6">';
+echo '<a href="partials/invoice.php?orderID='.$orderId.'" class="btn btn-success" >View Bill</a>';
 
-        </div>
-        
-    </div>
-    
-</td>';
+echo '</div>';
+echo '</div>';
+            
+            echo '<p ><strong> Status :  </strong><span style="font-style: italic; font-weight: normal; color: red;  margin-bottom: 3px;">Note: The status is not reversible for orders in transit, out for delivery, and delivered. So <strong>  Do it Carefully !</strong></span></p>';
+            echo '<div class="btn-group" role="group" aria-label="Delivery Status">';
 
-echo '</tr>';
+            $statusOptions = array("cancelled", "confirmed", "placed", "in_transit", "out_for_delivery", "delivered");
+            foreach ($statusOptions as $option) {
+                $isActive = isset($row['order_status']) && $row['order_status'] === $option ? 'active' : ''; ?>
+                <label class="btn btn-outline-primary status-label <?php echo $isActive; ?>"
+                       data-order-id="<?php echo $orderId; ?>"
+                       data-new-status="<?php echo $option; ?>"
+                       for="status_<?php echo $orderId . '_' . $option; ?>">
+                    <?php echo ucwords(str_replace("_", " ", $option)); ?>
+                </label>
+            <?php
+            }
+            
+            echo '</div>';
+            echo '</div>';
+            echo '</div>';
+            echo '</td>';
+            echo '</tr>';
+          
+           
+        }
     }
-    
-     /* echo '<td>' . $row['pin'] . '</td>';
-        echo '<td>' . $row['phone_no'] . '</td>';
-        echo '<td>' . $row['payment_status'] . '</td>';
-        echo '<td>' . $row['payment_mode'] . '</td>';
-        echo '<td>' . $row['amount'] . '</td>';*/
-  
-// ...
+    echo '</tbody>';
+    echo '</table>';
+} else {
+    echo '<table class="table table-striped">';
+    echo '<thead><tr><th>Order ID</th><th>Order Status</th><th>Product Name</th><th>Qty</th><th>Cust Name</th><th>Address</th><th>Pin</th><th>Phone</th><th>Pay Status</th><th>ModeOfPayment</th><th>Amount</th><th>Date</th></tr></thead>';
+    echo '<tbody>';
+    echo '<tr>';
+    echo '<td colspan="12">No orders found.</td>';
+    echo '</tr>';
+    echo '</tbody>';
+    echo '</table>';
+}
 
 // Pagination links
-$sqlCount = "SELECT COUNT(*) AS total FROM orders o
+$sqlCount = "SELECT COUNT(DISTINCT o.order_id) AS total FROM orders o
             JOIN products p ON o.product_id = p.sr_no
             WHERE o.date_time >= ? AND o.date_time <= ?";
-            
+
 $bindParamsCount = array('ss', $startDate, $endDate);
 
 // Add search filter if provided
@@ -273,16 +334,6 @@ echo '';
     }
     echo '</ul>';
     echo '</nav></td></tr>';
-} else {
-    echo '<table class="table table-striped">';
-    echo '<thead><tr><th>Order ID</th><th>Order Status</th><th>Product Name</th><th>Qty</th><th>Cust Name</th><th>Address</th><th>Pin</th><th>Phone</th><th>Pay Status</th><th>ModeOfPayment</th><th>Amount</th><th>Date</th></tr></thead>';
-    echo '<tbody>';
-    echo '<tr>';
-    echo '<td colspan="12">No orders found.</td>';
-    echo '</tr>';
-    echo '</tbody>';
-    echo '</table>';
-}
 
 $stmt->close();
 
