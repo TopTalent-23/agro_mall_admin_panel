@@ -1,7 +1,7 @@
-# Agro Mall 2.0
+# Agro Mall Admin Panel
 
 ## Overview
-Ahire Agro Mall 2.0 is an advanced e-commerce platform tailored specifically for agricultural products. This repository encompasses the backend functionalities developed in PHP, along with the frontend components built using HTML, CSS, JavaScript, jQuery, Ajax, and Bootstrap. The platform features a sophisticated admin panel with extensive analytics capabilities, order management, expense tracking, billing software, offer management, user and role management, about us section management, category and product management, and a comprehensive delivery updates system with OTP-based security.
+ Agro Mall Admin Panel is an advanced e-commerce platform tailored specifically for agricultural products. This repository encompasses the backend functionalities developed in PHP, along with the frontend components built using HTML, CSS, JavaScript, jQuery, Ajax, and Bootstrap. The platform features a sophisticated admin panel with extensive analytics capabilities, order management, expense tracking, billing software, offer management, user and role management, about us section management, category and product management, and a comprehensive delivery updates system with OTP-based security.
 
 ## Features
 
@@ -30,4 +30,4 @@ Ahire Agro Mall 2.0 is an advanced e-commerce platform tailored specifically for
 - **Bootstrap**: Frontend framework for responsive design and UI components
 
 ## Disclaimer
-Ahire Agro Mall 2.0 is a fictional project created for demonstration purposes. Any resemblance to real businesses or organizations is purely coincidental.
+ Agro Mall Admin Panel is a fictional project created for demonstration purposes. Any resemblance to real businesses or organizations is purely coincidental.
